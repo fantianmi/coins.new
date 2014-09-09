@@ -1,0 +1,8 @@
+<xml>
+	<config_ip>http://www.coinzq.com/crossdomain.xml</config_ip>
+	<sever_ip>http://www.coinzq.com/Field/</sever_ip>
+	<!-- 
+	<config_ip>http://www.guobi.org/crossdomain.xml</config_ip>
+	<sever_ip>http://www.guobi.org/farm/</sever_ip>
+	 -->
+</xml>

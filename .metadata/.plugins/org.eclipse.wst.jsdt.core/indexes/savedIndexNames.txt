@@ -1,0 +1,6 @@
+INDEX VERSION 1.122+D:\oursdreams.github.workspace\coins\coins.new\.metadata\.plugins\org.eclipse.wst.jsdt.core\indexes
+931339382.index
+1913569084.index
+2785549629.index
+2640557840.index
+2672533489.index

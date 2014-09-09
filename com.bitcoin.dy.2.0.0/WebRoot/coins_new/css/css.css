@@ -1,0 +1,18 @@
+* {margin:0; padding:0; list-style:none; outline:none;}
+html {overflow-y:scroll; -webkit-text-size-adjust:none;}
+img {border:none;}
+h1, h2, h3, h4, h5, h6, body {font-size:12px; font-weight:400; font-family:΢���ź�; color:#666; background:url(../img/bg.jpg) repeat-x;}
+a {color:#666; text-decoration:none;}
+a:hover { color:#9c231b; text-decoration:underline;}
+#head{ width:100%; height:53px; position:fixed; z-index:900; background:url(../img/head_bg.jpg) repeat-x; overflow:visible;}
+.head{ width:1024px; height:53px; margin:0 auto; overflow:hidden;}
+.menu{ width:22px; height:14px; float:left; margin-top:20px; overflow:hidden;}
+.logo{ width:97px; height:27px; float:left; margin-top:13px; margin-left:20px; overflow:hidden;}
+.menu_x{ width:1024px; height:auto; margin:0 auto; z-index:1000; overflow:visible; position:relative;}
+#sub_1{ width:984px; margin:0 auto; padding:0px 20px 20px 20px; background:#fff; filter:alpha(opacity=80); -moz-opacity:0.8; -khtml-opacity: 0.8; opacity: 0.8; overflow:hidden;}
+.menu_x dl{ width:170px; height:52px; float:left; margin-left:33px; margin-top:20px; background:url(../img/an.jpg) no-repeat; overflow:hidden;}
+.menu_x dt{ width:40px; height:40px; float:left; margin-top:6px; margin-left:6px; overflow:hidden;}
+.menu_x dd{ float:right; width:120px; height:auto; font-weight:bold; line-height:18px; margin-top:10px; color:#333;}
+#foot{ width:100%; height:auto; background:url(../img/foot.jpg) repeat-x; text-align:center; color:#999; padding:20px 0px; margin-top:20px; line-height:22px; overflow:hidden;}
+#foot a{ color:#999;}
+#foot a:hover{ color:#fff;}

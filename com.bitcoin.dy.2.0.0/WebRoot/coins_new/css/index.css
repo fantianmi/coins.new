@@ -1,0 +1,21 @@
+@import url("css.css");
+/* qqshop focus */
+#focus {width:1024px; height:428px; overflow:hidden; margin:0 auto; position:relative; padding-top:53px; overflow:hidden;}
+#focus ul {height:428px; position:absolute;}
+#focus ul li {float:left; width:1024px; height:428px; overflow:hidden; position:relative; background:#000;}
+#focus ul li div {position:absolute; overflow:hidden;}
+#focus .btnBg {position:absolute; width:1024px; height:20px; left:0; bottom:0; background:#000;}
+
+#focus .btn {position:absolute; width:1024px; height:10px; padding:5px 10px; right:0; bottom:0; text-align:right;}
+#focus .btn span {display:inline-block; _display:inline; _zoom:1; width:25px; height:10px; _font-size:0; margin-left:5px; cursor:pointer; background:#fff;}
+#focus .btn span.on {background:#fff;}
+#focus .preNext {width:45px; height:100px; position:absolute; top:200px; background:url(/img/sprite.png) no-repeat 0 0; cursor:pointer;}
+#focus .pre {left:0;}
+#focus .next {right:0; background-position:right top;}
+
+.box{ width:1024px; height:auto; margin:0 auto; margin-top:20px; border-top:3px solid #418ace; overflow:hidden;}
+.box dl{ width:500px; height:auto; float:left; margin-top:20px; overflow:hidden;}
+.box dt{ font-size:16px; font-weight:bold; color:#444; overflow:hidden;}
+.box dd{ line-height:20px; margin-top:5px; overflow:hidden;}
+#buy-color {color: #090 !important;}
+#sell-color {color: #D02C2B !important;}

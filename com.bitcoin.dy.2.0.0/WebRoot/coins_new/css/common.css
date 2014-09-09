@@ -1,0 +1,2 @@
+#tradeBtn{display:block; width:70px; height:25px; background:url(../img/ann.jpg) no-repeat; text-align:center; line-height:25px; color:#fff; font-size:13px; font-weight:bold; float:right;border:0px solid #fff}
+#tradeBtn:hover{background:url(../img/annHover.jpg)}
