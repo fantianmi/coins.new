@@ -37,7 +37,6 @@ import com.mvc.service.DealService;
 import com.mvc.service.HoldingService;
 import com.mvc.service.OrderService;
 import com.mvc.service.StockService;
-import com.mvc.service.TradeCateService;
 import com.mvc.service.UserService;
 import com.mvc.service.game.LuckWheelService;
 import com.mvc.util.FormatUtil;
@@ -54,8 +53,6 @@ public class AutoloadController {
 	private OrderService orderService = new OrderService();
 	@Autowired
 	private DealService dealService = new DealService();
-	@Autowired
-	private TradeCateService tcs = new TradeCateService();
 	@Autowired
 	private HoldingService hs = new HoldingService();
 	@Autowired
@@ -169,13 +166,9 @@ public class AutoloadController {
 		}
 		Btc_stock btc_stock = stockService.getBtc_stockByIdandExchangeStock(stockId, "CNY");
 		BigDecimal latestprice = new BigDecimal(0);
-		Btc_trade_category btc = new Btc_trade_category();
 		if(exstock.equals("CNY")){
 		// 最新成交价
 			latestprice = btc_stock.getBtc_stock_price();
-		}else{
-			btc = tcs.getTradeCateByBtcid(stockId, exstock);
-			latestprice = btc.getTradec_price();
 		}
 		Btc_deal_list_today_vo btc_deal_list_today_vo = new Btc_deal_list_today_vo();
 		// 买一价
@@ -429,12 +422,8 @@ public class AutoloadController {
 		// #######################################
 		Btc_stock btc_stock = stockService.getBtc_stockByIdandExchangeStock(stockId, "CNY");
 		BigDecimal latestprice = new BigDecimal(0);
-		Btc_trade_category btc = new Btc_trade_category();
 		if(exstock.equals("CNY")){
 			latestprice = btc_stock.getBtc_stock_price();
-		}else{
-			btc = tcs.getTradeCateByBtcid(stockId, exstock);
-			latestprice = btc.getTradec_price();
 		}
 		Btc_deal_list_today_vo btc_deal_list_today_vo = new Btc_deal_list_today_vo();
 		// 买一价

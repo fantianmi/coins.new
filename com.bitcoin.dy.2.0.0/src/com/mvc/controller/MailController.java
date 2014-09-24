@@ -69,7 +69,7 @@ public class MailController {
 		String end = validateFormat.format(new Date());
 		validatecode = validatecode+end;
 		user.setUvalidateCode(validatecode);
-		us.updateUser(user);
+		us.update(user);
 		//send email
 		String url = mailService.getMailConfig().getBtc_wangzhi()+"/validate.do?mailvalidate&username="+username+"&code="+validatecode;
 		String body = "<div><span style='font-size:16px;'><strong>亲爱的用户，您好！</strong></span><br />&nbsp;</div><div>您的用户名为";

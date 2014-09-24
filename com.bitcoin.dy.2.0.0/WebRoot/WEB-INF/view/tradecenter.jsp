@@ -127,7 +127,7 @@ else{sxf=new BigDecimal(request.getAttribute("extradesxf").toString());}%>
     	check(document.getElementById(x));
     	document.getElementById("sexchange").value = ((document.getElementById("sellQuantity").value) * (document.getElementById(x).value)).toFixed(2);
         document.getElementById("spoundage").innerHTML = (document.getElementById("sexchange").value * exstksxf).toFixed(2);
-        document.getElementById("cansellamount").innerHTML=sellleft.toFixed(2);
+        document.getElementById("cansellamount").innerHTML=(sellleft/1).toFixed(2);
     }
     
     function scaculateEx(x){
@@ -136,7 +136,7 @@ else{sxf=new BigDecimal(request.getAttribute("extradesxf").toString());}%>
     	check(document.getElementById(x));
         document.getElementById("sexchange").value = ((document.getElementById("sellingRate").value) * (document.getElementById(x).value)).toFixed(2);
         document.getElementById("spoundage").innerHTML = (document.getElementById("sexchange").value * exstksxf).toFixed(2);
-        document.getElementById("cansellamount").innerHTML=sellleft.toFixed(2);
+        document.getElementById("cansellamount").innerHTML=(sellleft/1).toFixed(2);
     }
     function scaculateBQ(x){
     	var sellleft=document.getElementById("sellyue").innerHTML;
@@ -144,7 +144,7 @@ else{sxf=new BigDecimal(request.getAttribute("extradesxf").toString());}%>
     	check(document.getElementById(x));
         document.getElementById("sellQuantity").value = (document.getElementById("sexchange").value / document.getElementById("sellingRate").value).toFixed(2);
         document.getElementById("spoundage").innerHTML = (document.getElementById("sexchange").value * exstksxf).toFixed(2);
-        document.getElementById("cansellamount").innerHTML=sellleft.toFixed(2);
+        document.getElementById("cansellamount").innerHTML=(sellleft/1).toFixed(2);
     }
 
 </script>
@@ -347,7 +347,7 @@ $(document).ready(function(){
       <div class="b2_l_t_l"><img src="<%=globalstock.getLogoadr() %>" width="30" height="30" style="float:left;" /> <b style="margin-left:10px;"><%=globalstock.getBtc_stock_name() %><%=globalstock.getBtc_stock_Eng_name()%>对<%=request.getAttribute("exstock").toString()%>交易市场</b></div>
       <div class="b2_l_t_r"><a href="JavaScript:get5minLine();">分钟</a><a href="JavaScript:getTimeLine();">小时</a><a href="JavaScript:getDayLine();">日</a></div>
     </div>
-    <div class="b2_l_b"><img src="img/qxt.jpg" width="835" height="306" /></div>
+    <div class="b2_l_b" id="k-line" style="height: 306px; width:833px;border:1px solid #cccccc"></div>
   </div>
   <div class="b2_r">
     <ul>
@@ -511,7 +511,7 @@ $(document).ready(function(){
   <div class="b3_r">
     <div class="b3_r1_t">关于莱特币LTC介绍</div>
     <div class="b3_r1_b">总量 8400万 </div>
-    <div class="b3_r2"><img src="img/yl.jpg" width="170" /></div>
+    <div class="b3_r2"><img src="coins_new/img/yl.jpg" width="170" /></div>
     <div class="b3_r1_t">官方QQ群</div>
     <div class="b3_r3_b">
       <ul>

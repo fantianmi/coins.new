@@ -3,8 +3,6 @@ package com.mvc.controller;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.math.BigDecimal;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
@@ -24,16 +22,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.mvc.entity.Btc_mail_content;
 import com.mvc.entity.Btc_profit;
 import com.mvc.entity.Btc_user;
-import com.mvc.service.HoldingService;
-import com.mvc.service.MailService;
 import com.mvc.service.ProfitService;
 import com.mvc.service.UserService;
 import com.mvc.util.AwardsUtil;
-import com.mvc.util.CookieHelper;
-import com.mvc.util.HoldingUtil;
 import com.mvc.util.MD5Util;
 import com.mvc.util.MailUtil;
 import com.mvc.util.RandomCode;
+import com.mvc.util.ServletUtil;
+import com.mvc.vo.RetCode;
 
 @Controller
 @RequestMapping("/register.do")
@@ -45,185 +41,54 @@ public class RegisterController {
 	@Autowired
 	private RandomCode rc = new RandomCode();
 	@Autowired
-	private HoldingService holds;
-	@Autowired
 	private MailUtil mailUtil;
 	@Autowired
 	private MD5Util md5util;
 	@Autowired
 	private AwardsUtil awards;
-	@Autowired
-	private HoldingUtil holdingutil;
-	
-	@Autowired
-	private MailService mailService;
 	
 	protected final transient Log log = LogFactory.getLog(RegisterController.class);
 
-	@RequestMapping
-	public void registerStep1(HttpServletRequest request, HttpServletResponse response,  ModelMap modelMap) throws IOException {
-		ResourceBundle hostres = ResourceBundle.getBundle("host"); 
-		String msg = "";
-		String href = "nohref";
-		PrintWriter out = response.getWriter();
-		response.setContentType("text/xml; charset=UTF-8");// 设置输出信息的格式及字符集
-		response.setHeader("Cache-Control", "no-cache");
-		int tuijieid = 0 ;
-		CookieHelper cookieHelp = new CookieHelper();
-        boolean cookie_tjid_flag = false;
-        cookie_tjid_flag = cookieHelp.searchCookie(request,"tjid");
-        if(cookie_tjid_flag==true){
-             tuijieid =  Integer.parseInt(cookieHelp.getCookie(request, "tjid").getValue());
-        }
-		Btc_user userVertify = new Btc_user();
-		Btc_user user = new Btc_user();
-		String uusername = request.getParameter("uusername");
-		String upassword = request.getParameter("upassword");
-		upassword = md5util.encode2hex(upassword);
-		SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-		String usdtime = format.format(new Date());
-		String uemail = request.getParameter("uemail");
-		if(us.checkEmailExist(uemail)==true){
-			msg = "该邮箱已被注册";
-			out.println("<response>");
-			out.println("<href>" + href + "</href>");
-			out.println("<msg>" + msg + "</msg>");
-			out.println("</response>");
-			out.close();
-			return;
-		}
-		userVertify = us.getByUsername(uusername);
-		if(userVertify==null){
-			user.setUusername(uusername);
-			user.setUpassword(upassword);
-			user.setUsdtime(usdtime);
-			user.setUemail(uemail);
-			user.setUrole("user");
-			user.setUstatus("register");
-			user.setGrade(0);
-			user.setHead("0.gif");
-			if(tuijieid!=0){
-				Btc_user tuijieuser = us.getByUid(tuijieid);
-				user.setUinvite_username(tuijieuser.getUusername());
-			}
-			String username = user.getUusername();
-			String validatecode = username;
-			SimpleDateFormat validateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
-			String end = validateFormat.format(new Date());
-			validatecode = validatecode+end;
-			user.setUvalidateCode(validatecode);
-			if(request.getParameter("uinvite_username")!=null){
-				user.setUinvite_username(request.getParameter("uinvite_username").toString());
-			}
-			try{
-				us.register_step1(user);
-				String url = mailService.getMailConfig().getBtc_wangzhi()+"/validate.do?mailvalidate&username="+username+"&code="+validatecode;
-				String body = "<div><span style='font-size:16px;'><strong>亲爱的用户，您好！</strong></span><br />&nbsp;</div><div>您的用户名为";
-				body = body + username + "</div><div>如确认无误，请点击下方按钮激活该邮箱，完成修改注册邮箱的操作。</div><div><a href='"+url+"'>"+url +"</a></div><div>欢迎您注册"+hostres.getString("host.small.title")+"交易中心，谢谢。</div><div>&nbsp;</div><div id='spnEditorSign'><span style='color: rgb(0, 0, 0); font-family: arial; font-size: 14px; line-height: 23px;'>"+hostres.getString("host.small.title")+"</span>&nbsp;&nbsp;网址：<a href='"+hostres.getString("host.wangzhi")+"'>"+hostres.getString("host.wangzhi")+"</a><span style='color: rgb(0, 0, 0); font-family: arial; font-size: 14px; line-height: 23px;'>"+hostres.getString("host.small.title")+"</span>&nbsp;&nbsp;电话：<a href='"+hostres.getString("host.wangzhi")+"'>"+hostres.getString("host.tel")+"</a><div style='color: rgb(0, 0, 0); font-family: arial; font-size: 14px; line-height: 23px;'>";
-				Btc_mail_content content = new Btc_mail_content();
-				content.setBtc_mail_content_body(body);
-				content.setBtc_mail_content_id(1);
-				content.setBtc_mail_content_subject(""+hostres.getString("host.title")+"帐号激活邮件");
-				content.setBtc_mail_content_use("active");
-				mailUtil.sendMail(content, user.getUemail());
-				msg = "注册成功!请在24小时之内登录您注册的邮箱点击链接进行激活。";
-				href = "index.do";
-				out.println("<response>");
-				out.println("<href>" + href + "</href>");
-				out.println("<msg>" + msg + "</msg>");
-				out.println("</response>");
-				out.close();
-				return;
-			}
-			catch(Exception e){
-				log.error(e.getMessage());
-				msg = "注册失败，请确认信息填写准确！";
-				out.println("<response>");
-				out.println("<href>" + href + "</href>");
-				out.println("<msg>" + msg + "</msg>");
-				out.println("</response>");
-				out.close();
-				return;
-
-			}
-		}else{
-			msg = "对不起，该用户名已被注册！";
-			out.println("<response>");
-			out.println("<href>" + href + "</href>");
-			out.println("<msg>" + msg + "</msg>");
-			out.println("</response>");
-			out.close();
-			return;
-		}
-	}
 	
 	@RequestMapping(params = "promote")
 	public void promoteRegister(HttpServletResponse response, HttpServletRequest request, ModelMap modelmap) throws IOException{
 		request.setCharacterEncoding("utf-8");
 		ResourceBundle res = ResourceBundle.getBundle("stock"); 
-	  //######################################################################
-		String msg = "";
-		String href = "nohref";
-		PrintWriter out = response.getWriter();
-		response.setContentType("text/xml; charset=UTF-8");// 设置输出信息的格式及字符集
-		response.setHeader("Cache-Control", "no-cache");
-		//#########################################################################
 		HttpSession session = request.getSession();
-		Btc_user user = (Btc_user)session.getAttribute("globaluser");
-		String utpassword = request.getParameter("utpassword");
-		utpassword = md5util.encode2hex(utpassword);
-		String usafequestion = request.getParameter("usafequestion");
-		String usafequestionanswer = request.getParameter("usafequestionanswer");
-		String uname = request.getParameter("uname");
 		
-		if(request.getParameter("ucertification")==null){
-			msg = "请输入身份证号";
-			out.println("<response>");
-			out.println("<href>" + href + "</href>");
-			out.println("<msg>" + msg + "</msg>");
-			out.println("</response>");
-			out.close();
-			
+		Btc_user user = (Btc_user)session.getAttribute("globaluser");
+		String utpassword = request.getParameter("upassword");
+		String uname = request.getParameter("realName");
+		
+		RetCode ret = RetCode.OK;
+		
+		if(request.getParameter("identityNo")==null){
+			ret=RetCode.IDCARD_EXIST;
+			ServletUtil.writeCommonReply("请输入身份证号", ret, response);
 			return;
 		}
-		String ucertification = request.getParameter("ucertification");
-		if(us.checkucertificationExist(ucertification)==true){
-			msg = "该身份证已被注册";
-			out.println("<response>");
-			out.println("<href>" + href + "</href>");
-			out.println("<msg>" + msg + "</msg>");
-			out.println("</response>");
-			out.close();
-			
+		String identityNo = request.getParameter("identityNo");
+		if(us.checkucertificationExist(identityNo)==true){
+			ret=RetCode.IDCARD_EXIST;
+			ServletUtil.writeCommonReply("身份证已存在", ret, response);
 			return;
 		}
 		Btc_profit profit = profits.getConfig();
 		BigDecimal userget = profit.getRegist_get();
 		awards.awardStock(user.getUid(), Integer.parseInt(res.getString("stock.registeraward.stockid")), userget);
 		
-		if(user.getUinvite_username()!=null){
-			Btc_user iuser = us.getByUsername(user.getUinvite_username());
-			awards.awardStock(iuser.getUid(), Integer.parseInt(res.getString("stock.tuijieaward.stockid")), profit.getInviteRegist_get());
+		if(user.getRecommend()!=0){
+			awards.awardStock(user.getRecommend(), Integer.parseInt(res.getString("stock.tuijieaward.stockid")), profit.getInviteRegist_get());
 			user.setUpstate("已获得");
-			us.register_step2(user);
+			us.update(user);
 		}
-		String ucertificationcategory = request.getParameter("ucertificationcategory");
-		user.setUtpasswod(utpassword);
-		user.setUsafequestion(usafequestion);
-		user.setUsafequestionanswer(usafequestionanswer);
+		String ucertificationcategory="中国身份证认证";
+		user.setMD5Utpasswod(utpassword);
 		user.setUname(uname);
-		user.setUcertification(ucertification);
+		user.setUcertification(identityNo);
 		user.setUcertificationcategory(ucertificationcategory);
-		us.register_step2(user);
-		msg = "谢谢完善资料，现在您可以开始自由交易了!";
-		href = "index.do";
-		out.println("<response>");
-		out.println("<href>" + href + "</href>");
-		out.println("<msg>" + msg + "</msg>");
-		out.println("</response>");
-		out.close();
-		
-		return;
+		us.update(user);
+		ServletUtil.writeCommonReply("谢谢完善资料", ret, response);
 	}
 	
 	@RequestMapping(params = "Login")
@@ -265,7 +130,7 @@ public class RegisterController {
 		user.setUphone(uphone);
 		user.setUsafequestion(usafeq);
 		user.setUsafequestionanswer(usafeqa);
-		us.updateUser(user);
+		us.update(user);
 		request.setAttribute("msg", "恭喜您，修改资料成功！");
 		request.setAttribute("href", "back");
 		return "index";
@@ -288,33 +153,33 @@ public class RegisterController {
 		Btc_user user = (Btc_user)session.getAttribute("globaluser");
 		String type = request.getParameter("updatetype").toString();
 		String opassword = md5util.encode2hex(request.getParameter("opassword").toString());
-		String npassword = md5util.encode2hex(request.getParameter("npassword").toString());
+		String npassword = request.getParameter("npassword").toString();
 		if(type.equals("updatepassword")){
 			if(!user.getUpassword().equals(opassword)){
 				request.setAttribute("msg", "原密码输入错误");
 				request.setAttribute("href", "back");
-				return "index";
+				return "redirect";
 			}
-			user.setUpassword(npassword);
-			us.updateUser(user);
+			user.setMD5Upassword(npassword);
+			us.update(user);
 			request.setAttribute("msg", "恭喜您，修改成功！");
 			request.setAttribute("href", "back");
-			return "index";
+			return "redirect";
 		}else if(type.equals("updateutpassword")){
 			if(!user.getUtpasswod().equals(opassword)){
 				request.setAttribute("msg", "原交易密码输入错误");
 				request.setAttribute("href", "back");
-				return "index";
+				return "redirect";
 			}
-			user.setUtpasswod(npassword);
-			us.updateUser(user);
+			user.setMD5Utpasswod(npassword);
+			us.update(user);
 			request.setAttribute("msg", "恭喜您，修改成功！");
 			request.setAttribute("href", "back");
-			return "index";
+			return "redirect";
 		}else{
 			request.setAttribute("msg", "非法操作！");
 			request.setAttribute("href", "back");
-			return "index";
+			return "redirect";
 		}
 	}
 	
@@ -390,7 +255,6 @@ public class RegisterController {
 			@RequestParam("password1")String npass,
 			HttpServletResponse response, 
 			HttpServletRequest request) throws IOException {
-		npass = md5util.encode2hex(npass);
 		//######################################################################
 		String msg = "";
 		String href = "nohref";
@@ -415,8 +279,8 @@ public class RegisterController {
 			return;
 		}
 		if(type.equals("upass")){
-			user.setUpassword(npass);
-			us.updateUser(user);
+			user.setMD5Upassword(npass);
+			us.update(user);
 			msg="重置密码成功，点击确认回到首页";
 			href="index.do";
 			out.println("<response>");
@@ -426,8 +290,8 @@ public class RegisterController {
 			out.close();
 			return;
 		}else if(type.equals("utpass")){
-			user.setUtpasswod(npass);
-			us.updateUser(user);
+			user.setMD5Utpasswod(npass);
+			us.update(user);
 			msg="重置交易密码成功，点击确认回到登录页面登录";
 			href="index.do";
 			out.println("<response>");

@@ -10,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import com.mvc.util.MD5Util;
 
 @Entity
 @Table(name = "btc_user")
@@ -46,8 +47,6 @@ public class Btc_user implements Serializable {
 	private String ucertificationcategory;
 	@Column(name="ucertification")
 	private String ucertification;
-	@Column(name="uinvite_username")
-	private String uinvite_username;
 	@Column(name="upstate")
 	private String upstate;
 	@Column(name="urole")
@@ -60,6 +59,9 @@ public class Btc_user implements Serializable {
 	private Integer grade;
 	@Column(name="head")
 	private String head;
+	//推荐人id
+	@Column(name="recommend")
+	private int recommend;
 	
 	
 	public Integer getGrade() {
@@ -98,17 +100,18 @@ public class Btc_user implements Serializable {
 	public void setUpstate(String upstate) {
 		this.upstate = upstate;
 	}
-	public String getUinvite_username() {
-		return uinvite_username;
+	
+	public int getRecommend() {
+		return recommend;
 	}
-	public void setUinvite_username(String uinvite_username) {
-		this.uinvite_username = uinvite_username;
+	public void setRecommend(int recommend) {
+		this.recommend = recommend;
 	}
 	public String getUtpasswod() {
 		return utpasswod;
 	}
-	public void setUtpasswod(String utpasswod) {
-		this.utpasswod = utpasswod;
+	public void setMD5Utpasswod(String utpasswod) {
+		this.utpasswod = MD5Util.encode2hex(utpasswod);
 	}
 	public String getUsafequestion() {
 		return usafequestion;
@@ -149,8 +152,8 @@ public class Btc_user implements Serializable {
 	public String getUpassword() {
 		return upassword;
 	}
-	public void setUpassword(String upassword) {
-		this.upassword = upassword;
+	public void setMD5Upassword(String upassword) {
+		this.upassword = MD5Util.encode2hex(upassword);
 	}
 	public String getUemail() {
 		return uemail;

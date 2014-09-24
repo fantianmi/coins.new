@@ -18,18 +18,11 @@ public class MailUtil {
 
 	@Autowired
 	private MailService mailservice = new MailService();
-
 	private MimeMessage mimeMsg; // MIME邮件对象
-
 	private Session request; // 邮件会话对象
-
 	private Properties props; // 系统属性
-
-
 	private String username = ""; // smtp认证用户名和密码
-
 	private String password = "";
-
 	private Multipart mp; // Multipart对象,邮件内容,标题,附件等内容均添加到其中后再生成
 	
 	public MailUtil(){

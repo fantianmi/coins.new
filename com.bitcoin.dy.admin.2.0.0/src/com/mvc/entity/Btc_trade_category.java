@@ -20,12 +20,22 @@ public class Btc_trade_category implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "tradecid", nullable = false)
 	private Integer tradecid;
+	@Column(name = "tradec_exstockid", nullable = false)
+	private Integer tradec_exstockid;
 	@Column(name = "tradec_stockid")
 	private Integer tradec_stockid;
 	@Column(name = "tradec_exstock")
 	private String tradec_exstock;
 	@Column(name = "tradec_price")
 	private BigDecimal tradec_price;
+
+	public Integer getTradec_exstockid() {
+		return tradec_exstockid;
+	}
+
+	public void setTradec_exstockid(Integer tradec_exstockid) {
+		this.tradec_exstockid = tradec_exstockid;
+	}
 
 	public Integer getTradecid() {
 		return tradecid;

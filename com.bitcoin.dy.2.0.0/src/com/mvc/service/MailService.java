@@ -16,12 +16,6 @@ import com.mvc.entity.Btc_mail_content;
 public class MailService {
 	@Autowired
 	private EntityDao entityDao;
-	
-	/**
-	 * 根据用户id查询对应账本信息
-	 * @param uid
-	 * @return
-	 */
 	public Btc_mail_config getMailConfig(){
 		Btc_mail_config config = new Btc_mail_config();
 		List<Object> list = entityDao.createQuery("select bmc from Btc_mail_config bmc");
@@ -32,13 +26,6 @@ public class MailService {
 			return null;
 		}	
 	}
-	
-	
-	
-	/**
-	 * 更新用户账户本
-	 * @param bab 传入账户本对象
-	 */
 	public void updateMailConfig(Btc_mail_config config) {
 		entityDao.update(config);
 	}
@@ -72,4 +59,5 @@ public class MailService {
 	public void deleteMailContent(Btc_mail_content content) {
 		entityDao.delete(content);
 	}
+	
 }

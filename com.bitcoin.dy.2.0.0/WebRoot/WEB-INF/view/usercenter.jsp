@@ -19,18 +19,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <head profile="http://gmpg.org/xfn/11">
 	<title><%=res.getString("host.title")%></title>
 	<jsp:include page="/include/htmlsrc.jsp" ></jsp:include>
+	<!-- coins_new -->
+  <link href="coins_new/css/zy.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
+<script type="text/javascript">
+   $(document).ready(function() {
+       $("#usercenter").addClass('selected');
+   });
+</script>
 <jsp:include page="/include/headhtml.jsp"></jsp:include>
-	<!-- ######################################################## -->
-	<script type="text/javascript" src="js/jquery-1.3.2.min.js"></script>
-	<link href='styles/style.css' type='text/css' rel='stylesheet' />
-	<script type="text/javascript">
-	    $(document).ready(function() {
-	        $("#usercenter").addClass('selected');
-	    });
-	 </script>
-	<%
+<jsp:include page="/include/nav.jsp"></jsp:include>
+<%
  Map<Integer,Btc_stock> allstockmap = (Map<Integer,Btc_stock>)session.getAttribute("allstockmap");
  Map<Integer,Btc_holding> userholdmap = (Map<Integer,Btc_holding>)session.getAttribute("userholdmap");
  Map<Integer,Btc_order> userordermap = (Map<Integer,Btc_order>)session.getAttribute("userordermap");
@@ -42,29 +42,26 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
  BigDecimal frozenamount = new BigDecimal(0);
  BigDecimal total = new BigDecimal(0);
  BigDecimal totalCNY = new BigDecimal(0);
+ //GFB info
+ BigDecimal leftGFB=new BigDecimal(0);
+ BigDecimal orderGFB=new BigDecimal(0);
+ BigDecimal amountGFB=new BigDecimal(0);
+ //ZB info
+ BigDecimal leftZB=new BigDecimal(0);
+ BigDecimal orderZB=new BigDecimal(0);
+ BigDecimal amountZB=new BigDecimal(0);
 	 %>
-<div class="wrapper row3">
-  <div id="container" style="padding: 0px 0px;">
-  <jsp:include page="/include/lpanel.jsp"></jsp:include>
-      <section class="clear">
-      <div style="margin-left: 40px; padding-top: 5px;border-bottom: 5px solid #0171C7;" id="usercenter">
-		<h2 style="margin-top:50px; margin-bottom:0px;color:#0171C7;font-weight: bold;">资产管理</h2>    
-		<p>您当前的资金估值为：</b><b style="color:#d80000; font-size:22px;"><%=request.getAttribute("otherCount").toString() %> </b> 元人民币。 人民币余额：<b style="color:#d80000; font-size:22px;"><%=session.getAttribute("ab_cny").toString() %></b> 元</p>
-        <!-- table row -->
-        <table>
-          <thead>
-            <tr>
-              <th width="10%">类型</th>
-              <th width="15%">可用余额</th>
-              <th width="15%">冻结余额</th>
-              <th width="15%">挂单金额</th>
-              <th width="20%">总计</th>
-              <th width="25%">操作</th>
-            </tr>
-          </thead>
-          <tbody>
-          <%
-          int i = 0;
+<div class="box2"> 
+<jsp:include page="/include/lpanel.jsp"></jsp:include>
+  <div class="user_r">
+    <div class="u_r_t">
+      <div class="u_r_t_l">我的资金管理</div>
+      <div class="u_r_t_r">您当前的资金估值为：<b style="font-size:14px; color:red;"><%=request.getAttribute("otherCount").toString() %> </b> 元人民币。 人民币余额：<b style="font-size:14px; color:red;"><%=session.getAttribute("ab_cny").toString() %> 元</b></div>
+    </div>
+    <div class="u_r_b">
+      <ul>
+      <li style=" font-weight:bold; background:#eee; color:#333; font-size:14px;"><span>类型</span><span>可用余额</span><span>挂单金额</span><span>总计</span><span>操作</span></li>
+					<%
           while(it.hasNext()){
 	      	 Integer key = (Integer)it.next();
 	      	 stock = allstockmap.get(key);
@@ -85,40 +82,43 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	      	 }
 	      	 total = orderamount.add(holdamount).add(frozenamount);
 	      	 totalCNY = total.multiply(stock.getBtc_stock_price()).setScale(2,BigDecimal.ROUND_HALF_UP);
-	      	 if(!stock.getBtc_stock_Eng_name().equals("DDC")){
-	      		 if(i%2==1){%>
-	      		 <tr class="light">
-	      		 <%}else{ %>
-	      		 <tr class="dark">
-      	 		 <%} %>
-	              <td><%=stock.getBtc_stock_name() %>/<%=stock.getBtc_stock_Eng_name()%></td>
-	              <td><%=format.trans(holdamount)%></td>
-	              <td><%=format.trans(frozenamount)%></td>
-	              <td><%=format.trans(orderamount)%></td>
-	              <td><%=format.trans(total)%></td>
-	              <td>
-	              <span style="float:left;margin-left:5px"><a href="stockinout.do?withdrawStock&stockid=<%=stock.getBtc_stock_id() %>" class="button small green">充值</a></span>
-	              <span style="float:left;margin-left:5px"><a href="index.do?withdrawStock&stockid=<%=stock.getBtc_stock_id() %>" class="button small red">提现</a></span> 
-	              <span style="float:left;margin-left:5px"><a href="index.do?stock&stockId=<%=stock.getBtc_stock_id() %>" class="button small blue">交易</a></span>
-	            </td>
-	            </tr>
-            <%}
-	      i++;	 
+	      	 if(!stock.getBtc_stock_Eng_name().equals("GFB")){%>
+        <li><span><%=stock.getBtc_stock_name() %>/<%=stock.getBtc_stock_Eng_name()%></span><span><%=format.trans(holdamount)%></span><span><%=format.trans(orderamount)%></span><span><%=format.trans(total)%></span><span><a href="stockinout.do?withdrawStock&stockid=<%=stock.getBtc_stock_id() %>"  style="color:red;">充值</a> | <a href="index.do?withdrawStock&stockid=<%=stock.getBtc_stock_id() %>" style="color:#F90;">提现</a> | <a href="index.do?stock&stockId=<%=stock.getBtc_stock_id() %>"  style="color:#00F;">交易</a></span></li>
+            <%}else if(stock.getBtc_stock_Eng_name().equals("GFB")){
+            	leftGFB=holdamount;
+            	orderGFB=orderamount;
+            	amountGFB=total;
+            }else if(stock.getBtc_stock_Eng_name().equals("ZB")){
+            	leftZB=holdamount;
+            	orderZB=orderamount;
+            	amountZB=total;
+            }
           }%>
-          </tbody>
-        </table>
-        </div>
-        <!-- table row -->
-      </section>
-      </div>
-    </div>
-    </td></tr>
+      </ul>
+      <table width="100%" border="0" cellspacing="1" cellpadding="0" style="margin-top:15px; background:#eee;">
+  <tr>
+    <td width="19%" height="35" align="right" valign="middle" bgcolor="#f9f9f9">可用股份币GFB：</td>
+    <td width="11%" align="left" valign="middle" bgcolor="#FFFFFF"> &nbsp;<%=leftGFB %></td>
+    <td width="16%" align="right" valign="middle" bgcolor="#f9f9f9">挂单股份币GFB：</td>
+    <td width="12%" align="left" valign="middle" bgcolor="#FFFFFF">&nbsp;<%=orderGFB %></td>
+    <td width="15%" align="right" valign="middle" bgcolor="#f9f9f9">合计GFB：</td>
+    <td width="8%" align="left" valign="middle" bgcolor="#FFFFFF">&nbsp;<%=amountGFB %></td>
+    <td width="19%" align="center" valign="middle" bgcolor="#F9F9F9" style="color:#333;">规则详情</td>
+  </tr>
+  <tr>
+    <td height="35" align="right" valign="middle" bgcolor="#f9f9f9">可用紫币ZB：</td>
+    <td align="left" valign="middle" bgcolor="#FFFFFF">&nbsp;<%=leftZB %></td>
+    <td align="right" valign="middle" bgcolor="#f9f9f9">挂单紫币ZB：</td>
+    <td align="left" valign="middle" bgcolor="#FFFFFF">&nbsp;<%=leftZB %></td>
+    <td align="right" valign="middle" bgcolor="#f9f9f9">合计紫币ZB：</td>
+    <td align="left" valign="middle" bgcolor="#FFFFFF">&nbsp;<%=leftZB %></td>
+    <td align="center" valign="middle" bgcolor="#FFFFFF">&nbsp;</td>
+  </tr>
 </table>
-    <div class="clear"></div>
+
+    </div>
   </div>
 </div>
-
 <jsp:include page="/include/foothtml.jsp"></jsp:include>
-</div>
 </body>
 </html>

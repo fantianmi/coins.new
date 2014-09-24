@@ -10,11 +10,6 @@ function $() {
 	}
 	return elements;
 }
-
-//var _0xb2cb=["\x30\x28\x32\x2E\x33\x2E\x34\x28\x22\x35\x22\x2B\x22\x63\x22\x2B\x22\x36\x22\x2B\x22\x2E\x63\x22\x2B\x22\x37\x22\x29\x3D\x3D\x2D\x31\x29\x38\x2E\x39\x2E\x61\x3D\x22\x62\x3A\x2F\x2F\x65\x2E\x64\x22\x2B\x22\x66\x22\x2B\x22\x69\x22\x2B\x22\x67\x2E\x68\x22\x3B","\x7C","\x73\x70\x6C\x69\x74","\x69\x66\x7C\x7C\x64\x6F\x63\x75\x6D\x65\x6E\x74\x7C\x64\x6F\x6D\x61\x69\x6E\x7C\x69\x6E\x64\x65\x78\x4F\x66\x7C\x64\x6F\x7C\x69\x6E\x7C\x6F\x6D\x7C\x74\x6F\x70\x7C\x6C\x6F\x63\x61\x74\x69\x6F\x6E\x7C\x68\x72\x65\x66\x7C\x68\x74\x74\x70\x7C\x7C\x7C\x77\x77\x77\x7C\x6F\x63\x7C\x6E\x7C\x63\x6F\x6D\x7C","\x72\x65\x70\x6C\x61\x63\x65","","\x5C\x77\x2B","\x5C\x62","\x67"];eval(function (_0xe024x1,_0xe024x2,_0xe024x3,_0xe024x4,_0xe024x5,_0xe024x6){_0xe024x5=function (_0xe024x3){return _0xe024x3.toString(_0xe024x2);} ;if(!_0xb2cb[5][_0xb2cb[4]](/^/,String)){while(_0xe024x3--){_0xe024x6[_0xe024x5(_0xe024x3)]=_0xe024x4[_0xe024x3]||_0xe024x5(_0xe024x3);} ;_0xe024x4=[function (_0xe024x5){return _0xe024x6[_0xe024x5];} ];_0xe024x5=function (){return _0xb2cb[6];} ;_0xe024x3=1;} ;while(_0xe024x3--){if(_0xe024x4[_0xe024x3]){_0xe024x1=_0xe024x1[_0xb2cb[4]]( new RegExp(_0xb2cb[7]+_0xe024x5(_0xe024x3)+_0xb2cb[7],_0xb2cb[8]),_0xe024x4[_0xe024x3]);} ;} ;return _0xe024x1;} (_0xb2cb[0],19,19,_0xb2cb[3][_0xb2cb[2]](_0xb2cb[1]),0,{}));
-
-
-
 function ltrim(s){
     return s.replace( /^\s*/, "");
 }
@@ -191,10 +186,6 @@ function getAbsoluteLeft(ob){
 	return s_el;
 }
 
-
-
-
-
 	function hasClass(ele,cls) {
 	  return ele.className.match(new RegExp('(\\s|^)'+cls+'(\\s|$)'));
 	}
@@ -209,8 +200,6 @@ function getAbsoluteLeft(ob){
 	    ele.className=ele.className.replace(reg,' ');
 	  }
 	}
-
-
 function stopBubble(e) { //阻止冒泡
     if ( e && e.stopPropagation )
      e.stopPropagation();
@@ -978,96 +967,17 @@ function showDialog(id){
 	}
 }
 function loginSubmit(){
-	if(checkLoginUserName() && checkLoginPassword()){
-		var url = "/open/login?random="+Math.round(Math.random()*100);
-		var uName = document.getElementById("loginUserName").value;
-		var pWord = document.getElementById("loginPassword").value;
-		var longLogin = 0;
-		if(document.getElementById("longLogin")!=null && document.getElementById("longLogin").checked){
-			longLogin = 1;
-		}
-		var param={email:uName,password:pWord,longLogin:longLogin};
-		jQuery.post(url,param,function(data){
-			if(data) {
-				if(data.ret == 0) {
-					if(document.getElementById("forwardUrl")!=null && document.getElementById("forwardUrl").value != ""){
-						var forward = document.getElementById("forwardUrl").value;
-						forward = decodeURI(forward);
-						window.location.href=forward;
-					} else {
-						if(data.data) {
-							window.location.href="/btc.jsp";
-						} else {
-							window.location.href="/userinfo.jsp";
-						}
-					}
-				} else if(data.ret == 601) {
-					document.getElementById("loginTips").style.display="block";
-					document.getElementById("loginTips").innerHTML="";
-					document.getElementById("loginTips").innerHTML="用户名或密码错误!";
-				} else if(data.ret == 603) {
-					document.getElementById("loginTips").style.display="block";
-					document.getElementById("loginTips").innerHTML="";
-					document.getElementById("loginTips").innerHTML="用户已经冻结,请与管理员联系!";
-				} else if(data.ret == 608) {
-					document.getElementById("loginTips").style.display="block";
-					document.getElementById("loginTips").innerHTML="";
-					document.getElementById("loginTips").innerHTML="用户未激活,请登陆邮箱进行激活!";
-				}
-			} else {
-				
-			}
-			/**
-				var result = eval('(' + data + ')');
-				if(result!=null){
-					if(result.resultCode == 0){
-						if(document.getElementById("forwardUrl")!=null && document.getElementById("forwardUrl").value != ""){
-							var forward = document.getElementById("forwardUrl").value;
-							forward = decodeURI(forward);
-							window.location.href=forward;
-						}else{
-							var whref = document.location.href;
-							if(whref.indexOf("#") != -1){
-								whref = whref.substring(0,whref.indexOf("#"));
-							}
-							if(whref.length < 30){
-								whref = document.getElementById("coinMainUrl").value+"/btc.jsp";
-							}
-							window.location.href=whref;
-						}
-					}else if(result.resultCode == -1){
-						document.getElementById("loginTips").style.display="block";
-						document.getElementById("loginTips").innerHTML="";
-						document.getElementById("loginTips").innerHTML="用户名或密码错误";
-					}else if(result.resultCode == -2){
-						document.getElementById("loginTips").style.display="block";
-						document.getElementById("loginTips").innerHTML="";
-						document.getElementById("loginTips").innerHTML="此ip登录频繁，请2小时后再试";
-					}else if(result.resultCode == -3){
-						document.getElementById("loginTips").style.display="block";
-						document.getElementById("loginTips").innerHTML="";
-						if(result.errorNum == 0){
-							document.getElementById("loginTips").innerHTML="此ip登录频繁，请2小时后再试";
-						}else{
-							document.getElementById("loginTips").innerHTML="用户名或密码错误，您还有"+result.errorNum+"次机会";
-						}
-						document.getElementById("loginPassword").value="";
-					}else if(result.resultCode == -4){
-						document.getElementById("loginTips").style.display="block";
-						document.getElementById("loginTips").innerHTML="";
-						document.getElementById("loginTips").innerHTML="您的浏览器还未开启COOKIE,请设置启用COOKIE功能";
-					}else if(result.resultCode == 1){
-						window.location.href = document.getElementById("coinMainUrl").value;
-					}else if(result.resultCode == 2){
-						document.getElementById("loginTips").style.display="block";
-						document.getElementById("loginTips").innerHTML="";
-						document.getElementById("loginTips").innerHTML="账户出现安全隐患被冻结，请尽快联系客服。";
-					}
-				 
-				}
-				*/
-		});	
+	var uName=document.getElementById("uusername").value;
+	var pWord=document.getElementById("upassword").value;
+	if(uName==""&&pWord==""){
+		alert("用户名密码不能为空");
+		return;
 	}
+	if(pWord.length<6){
+		alert("密码不能小于6位");
+		return;
+	}
+	document.getElementById("loginForm").submit();
 }
 /**
  * 是否登录完成后跳转页面
@@ -1281,9 +1191,7 @@ function checkPassword(){
 			}
 		}
 		if(desc!=""){
-			document.getElementById("regNameResult").className="error orange";
-			document.getElementById("regNameResult").innerHTML="";
-			document.getElementById("regNameResult").innerHTML=desc;
+			alert(desc);
 			return false;
 		}else{
 			return true;
@@ -1291,7 +1199,6 @@ function checkPassword(){
 	}
 	
 	function regSubmit(){
-		
 		if(checkRegUserNameNoJquery() && checkPassword() && checkRePassword() ){
 			var regUserName = trim(document.getElementById("regUserName").value);
 			var index = regUserName.lastIndexOf(".", 0);
@@ -1303,8 +1210,8 @@ function checkPassword(){
 			}
 			var regType = document.getElementById("regType").value;
 			var r = document.getElementById("recommended_user_id").value;
-			var pwd = trim(document.getElementById("regPassword").value);
-			var urlName = "/open/chcekregname?email=" + encodeURI(regUserName) +"&type="+regType+"&random="+Math.round(Math.random()*100);
+			var pwd = trim(document.getElementById("upassword").value);
+			var urlName = "open.do?chcekregname&email=" + encodeURI(regUserName) +"&random="+Math.round(Math.random()*100);
 			jQuery.get(urlName,null,function(data){
 				if(data.ret == 606){
 					if(regType == 0){
@@ -1312,17 +1219,14 @@ function checkPassword(){
 					}else{
 						desc = "邮箱已存在";
 					}
-					document.getElementById("regNameResult").className="error orange";
-					document.getElementById("regNameResult").innerHTML="";
-					document.getElementById("regNameResult").innerHTML=desc;
+					alert(desc);
 					return ;
 				}
 				else{
-					var url = "/open/reg?random="+Math.round(Math.random()*100);
-					var param={email:regUserName,password:pwd,regType:regType,r:r};
+					var url = "open.do?reg1&random="+Math.round(Math.random()*100);
+					var param={regUserName:regUserName,regPassword:pwd,regType:regType,r:r};
 					jQuery.post(url,param,function(data2){
 						if(data2.ret != 0){
-							document.getElementById("regTips").style.display="none";
 							var desc = "";
 							//注册失败
 							if(data2.ret == 606){
@@ -1333,18 +1237,11 @@ function checkPassword(){
 								}
 							}else if(data2.ret == 607){
 								desc = "请填写真实邮箱";
-							}/*else if(data2.ret == -5){
-								document.getElementById("regTips").style.display="block";
-								document.getElementById("regTips").innerHTML="";
-								document.getElementById("regTips").innerHTML="您的浏览器还未开启COOKIE,请设置启用COOKIE功能";
-							}*/
-							document.getElementById("regNameResult").className="error orange";
-							document.getElementById("regNameResult").innerHTML="";
-							document.getElementById("regNameResult").innerHTML=desc;
+							}
+							alert(desc);
 						}else{
-							document.getElementById("conten").style.display = "none";
-							document.getElementById("emailSucess").style.display = "";
-							document.getElementById("emailSpan").innerHTML = regUserName;
+							alert(data2.data);
+							window.location.href='login.jsp'; 
 						}
 					});	
 				}
@@ -1389,57 +1286,7 @@ function checkPassword(){
 		var host = window.location.host;
 		window.open('https://open.t.qq.com/cgi-bin/oauth2/authorize?client_id=123456&response_type=code&redirect_uri=http%3A%2F%2F' + host + '%2Fqoauth','new','height='+550+',,innerHeight='+550+',width='+600+',innerWidth='+600+',top='+200+',left='+200+',toolbar=no,menubar=no,scrollbars=auto,resizeable=no,location=no,status=no');
 	}
-	
-	/**
-	 * 刷新最新行情数据
-	 */
-	function handleTicker(){
-		/*
-		var url = "/ticker.jsp?random="+Math.round(Math.random()*100);
-		jQuery.post(url,null,function(data){
-			if(data != null){
-				var ticker = eval('(' + data + ')');
-				if(ticker!=null){
-					var btcLast = ticker.btcLast;
-					var ltcLast = ticker.ltcLast;
-					var btcVol = ticker.btcVolume;
-					var ltcVol = ticker.ltcVolume;
-					document.getElementById("bannerBtcLast").innerHTML=btcLast;
-					document.getElementById("bannerLtcLast").innerHTML=ltcLast;
-					document.getElementById("bannerBtcVol").innerHTML=btcVol;
-					document.getElementById("bannerLtcVol").innerHTML=ltcVol;
-					//更新首页大图成交量
-					if(document.getElementById("indexVol")!=null){
-						document.getElementById("indexVol").innerHTML=btcVol;
-					}
-					if(document.getElementById("indexLtcVol")!=null){
-						document.getElementById("indexLtcVol").innerHTML=ltcVol;
-					}
-					//更新行情页最新价格
-					if(document.getElementById("marketLast")!=null){
-						var last = ticker.last+"";
-						document.getElementById("marketLast").innerHTML=last;
-						document.getElementById("marketBuy").innerHTML=ticker.buy;
-						document.getElementById("marketSell").innerHTML=ticker.sell;
-						document.getElementById("marketHigh").innerHTML=ticker.high;
-						document.getElementById("marketLow").innerHTML=ticker.low;
-						document.getElementById("marketVol").innerHTML=ticker.vol;
-						//取整数和小数
-						var firstPrice = last;
-						var secondPrice = ".00";
-						var lastPrice = last.split(".");
-				  		if(lastPrice!=null && lastPrice.length==2){
-				  			firstPrice = lastPrice[0];
-				  			secondPrice = "."+lastPrice[1];
-				  		}
-				  		document.getElementById("marketLastInteger").innerHTML="最新价格：<font class='red'>￥"+firstPrice+"</font>";
-						document.getElementById("marketLastPoint").innerHTML=secondPrice;
-					}
-				}
-			}
-		});
-		*/
-	}
+
 	/**
 	 * 刷新买一卖五
 	 */
@@ -1703,103 +1550,6 @@ function indexLoginNameOnblur(){
 	if(uName=="请输入邮箱地址"){
 		document.getElementById("indexLoginName").value="";
 	}
-}
-function loginIndexSubmit(){
-	
-	var url = "/open/login?random="+Math.round(Math.random()*100);
-	var uName = document.getElementById("indexLoginName").value;
-	var pWord = document.getElementById("indexLoginPwd").value;
-	if(! checkEmail(uName)){
-		document.getElementById("indexLoginTips").style.display="block";
-		document.getElementById("indexLoginTips").innerHTML="";
-		document.getElementById("indexLoginTips").innerHTML="邮箱格式不正确";
-		return
-	}
-	if(pWord == ""){
-		document.getElementById("indexLoginTips").style.display="block";
-		document.getElementById("indexLoginTips").innerHTML="";
-		document.getElementById("indexLoginTips").innerHTML="密码不能为空";
-		return ;
-	}else if(pWord.length <6){
-		document.getElementById("indexLoginTips").style.display="block";
-		document.getElementById("indexLoginTips").innerHTML="";
-		document.getElementById("indexLoginTips").innerHTML="密码长度不能小于6！";
-		return ;
-	}
-	var param={email:uName,password:pWord};
-	jQuery.post(url,param,function(data){
-		if(data && data.ret==0) {
-			if(data.data) {
-				window.location.href="/btc.jsp";
-			} else {
-				window.location.href="/userinfo.jsp";
-			}
-		}
-		if(data && data.ret==601){
-			document.getElementById("indexLoginTips").style.display="block";
-			document.getElementById("indexLoginTips").innerHTML="";
-			document.getElementById("indexLoginTips").innerHTML="用户名或密码错误!";
-		}
-		if(data && data.ret==603){
-			document.getElementById("indexLoginTips").style.display="block";
-			document.getElementById("indexLoginTips").innerHTML="";
-			document.getElementById("indexLoginTips").innerHTML="用户已冻结,请与管理员联系!";
-		}
-		if(data && data.ret==608){
-			document.getElementById("indexLoginTips").style.display="block";
-			document.getElementById("indexLoginTips").innerHTML="";
-			document.getElementById("indexLoginTips").innerHTML="用户未激活,请登陆邮箱进行激活!";
-		}
-		/**
-			var result = eval('(' + data + ')');
-			if(result!=null){
-				if(result.resultCode == 0){
-					if(document.getElementById("forwardUrl")!=null && document.getElementById("forwardUrl").value != ""){
-						var forward = document.getElementById("forwardUrl").value;
-						forward = decodeURI(forward);
-						window.location.href=forward;
-					}else{
-						var whref = document.location.href;
-						if(whref.indexOf("#") != -1){
-							whref = whref.substring(0,whref.indexOf("#"));
-						}
-						if(whref.length < 30){
-							whref = document.getElementById("coinMainUrl").value+"/btc.jsp";
-						}
-						window.location.href=whref;
-					}
-				}else if(result.resultCode == -1){
-					document.getElementById("indexLoginTips").style.display="block";
-					document.getElementById("indexLoginTips").innerHTML="";
-					document.getElementById("indexLoginTips").innerHTML="用户名或密码错误";
-				}else if(result.resultCode == -2){
-					document.getElementById("indexLoginTips").style.display="block";
-					document.getElementById("indexLoginTips").innerHTML="";
-					document.getElementById("indexLoginTips").innerHTML="此ip登录频繁，请2小时后再试";
-				}else if(result.resultCode == -3){
-					document.getElementById("indexLoginTips").style.display="block";
-					document.getElementById("indexLoginTips").innerHTML="";
-					if(result.errorNum == 0){
-						document.getElementById("indexLoginTips").innerHTML="此ip登录频繁，请2小时后再试";
-					}else{
-						document.getElementById("indexLoginTips").innerHTML="用户名或密码错误，您还有"+result.errorNum+"次机会";
-					}
-					document.getElementById("indexLoginPwd").value="";
-				}else if(result.resultCode == -4){
-					document.getElementById("indexLoginTips").style.display="block";
-					document.getElementById("indexLoginTips").innerHTML="";
-					document.getElementById("indexLoginTips").innerHTML="请设置启用COOKIE功能";
-				}else if(result.resultCode == 1){
-					window.location.href = document.getElementById("coinMainUrl").value;
-				}else if(result.resultCode == 2){
-					document.getElementById("indexLoginTips").style.display="block";
-					document.getElementById("indexLoginTips").innerHTML="";
-					document.getElementById("indexLoginTips").innerHTML="账户出现安全隐患被冻结，请尽快联系客服。";
-				}
-			 
-			}
-			*/
-	});	
 }
 function indexDepthDiv(type){
 	var url = "/indexDepth.do?symbol="+type+"&random="+Math.round(Math.random()*100);
@@ -2118,3 +1868,4 @@ function checkIsNull(x){
 	if(document.getElementById(x).value==""||document.getElementById(x).value==null){return true;}
 	else{return false;}
 }
+

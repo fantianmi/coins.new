@@ -1,5 +1,6 @@
 package com.mvc.service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -7,7 +8,9 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.mvc.dao.EntityDao;
+import com.mvc.entity.Btc_stock;
 import com.mvc.entity.Btc_trade_category;
+import com.mvc.vo.NaviStockModel;
 
 /**
  * 处理用户账户帐本的增删改查
@@ -19,6 +22,10 @@ import com.mvc.entity.Btc_trade_category;
 public class TradeCateService {
 	@Autowired
 	private EntityDao entityDao;
+	@Autowired
+	private StockService stocks;
+	@Autowired
+	private DealService deals;
 
 	/**
 	 * 根据用户id查询对应账本信息
@@ -34,6 +41,38 @@ public class TradeCateService {
 		} else {
 			return null;
 		}
+	}
+	/**
+	 * 根据用户id查询对应账本信息
+	 * @param uid
+	 * @return
+	 */
+	public List<NaviStockModel> getTradeCateByExstockNavi(String exstock){
+		List<NaviStockModel> nlist = new ArrayList<NaviStockModel>();
+		Btc_trade_category cstock = new Btc_trade_category();
+		
+		Btc_stock stock = new Btc_stock();
+		Map<Integer,Object> stockmap = stocks.getBtc_stockMapbyId();
+		List<Object> list = entityDao.createQuery("select btc from Btc_trade_category btc where btc.tradec_exstock='" + exstock + "'");
+		if (list.size() != 0) {
+			for(int i=0;i<list.size();i++){
+				cstock = (Btc_trade_category)list.get(i);
+				stock = (Btc_stock)stockmap.get(cstock.getTradec_stockid());
+				NaviStockModel nsm = new NaviStockModel();
+				nsm.setEngName(stock.getBtc_stock_Eng_name()	);
+				nsm.setExstock(exstock);
+				nsm.setId(stock.getBtc_stock_id());
+				nsm.setLastprice(deals.getLtPrice(nsm.getId(), exstock));
+				nsm.setName(stock.getBtc_stock_name());
+				nsm.setNewsprice(cstock.getTradec_price());
+				nsm.setZdf(nsm.getNewsprice(), nsm.getLastprice());
+				nsm.setImgsrc(stock.getLogoadr());
+				nlist.add(nsm);
+			}
+			return nlist;
+		}else{
+			return null;
+		}	
 	}
 
 	public Map<String, List<Object>> getNav() {

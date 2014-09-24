@@ -1,9 +1,10 @@
 * {margin:0; padding:0; list-style:none; outline:none;}
 html {overflow-y:scroll; -webkit-text-size-adjust:none;}
 img {border:none;}
-h1, h2, h3, h4, h5, h6, body {font-size:12px; font-weight:400; font-family:΢���ź�; color:#666; background:url(../img/bg.jpg) repeat-x;}
+h1, h2, h3, h4, h5, h6, body {font-size:12px; font-weight:400; font-family:微软雅黑; color:#666; background:url(../img/bg.jpg) repeat-x;}
 a {color:#666; text-decoration:none;}
 a:hover { color:#9c231b; text-decoration:underline;}
+/*整体设置结束*/
 #head{ width:100%; height:53px; position:fixed; z-index:900; background:url(../img/head_bg.jpg) repeat-x; overflow:visible;}
 .head{ width:1024px; height:53px; margin:0 auto; overflow:hidden;}
 .menu{ width:22px; height:14px; float:left; margin-top:20px; overflow:hidden;}

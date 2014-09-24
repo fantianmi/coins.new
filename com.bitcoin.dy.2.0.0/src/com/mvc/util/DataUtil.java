@@ -176,6 +176,12 @@ public class DataUtil {
 		cal.setTime(date);
 		return cal.get(Calendar.DAY_OF_WEEK);
 	}
+	
+	public String getNoSpaceTime(){
+		SimpleDateFormat validateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
+		String out = validateFormat.format(new Date());
+		return out;
+	}
 
 	@Test
 	public void testoutn() throws java.text.ParseException {

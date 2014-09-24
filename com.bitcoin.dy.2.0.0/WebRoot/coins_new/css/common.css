@@ -1,2 +1,14 @@
 #tradeBtn{display:block; width:70px; height:25px; background:url(../img/ann.jpg) no-repeat; text-align:center; line-height:25px; color:#fff; font-size:13px; font-weight:bold; float:right;border:0px solid #fff}
 #tradeBtn:hover{background:url(../img/annHover.jpg)}
+#buy-color {color: #090 !important;}
+#sell-color {color: #D02C2B !important;}
+#menu_colum_nav{float:right}
+#menu_colum_nav ul li{float:left;margin:5px;height:20px;border:1px solid #000;color:#fff;padding:10px;font-size: 12px}
+#menu_colum_nav ul li:hover{background-color: #000}
+#menu_colum_nav a{color:#fff}
+#menu_colum_nav a:hover{color:#fff;text-decoration: none;}
+/*选择菜单效果*/
+.selected{color: #9c231b;}
+.btn{height:40px;border: 1px solid #ccc;padding: 5px}
+.black{background-color: #2a2929;color:#fff;}
+.black:hover{background-color: #000;color:#fff;}

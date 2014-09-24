@@ -17,10 +17,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.mvc.entity.Btc_stock;
-import com.mvc.entity.Btc_trade_category;
 import com.mvc.service.DealService;
 import com.mvc.service.StockService;
-import com.mvc.service.TradeCateService;
 import com.mvc.util.FormatUtil;
 import com.mvc.vo.Btc_deal_list_today_vo;
 
@@ -31,8 +29,6 @@ public class TopAutoloadController {
 	private StockService stockService = new StockService();
 	@Autowired
 	private DealService dealService = new DealService();
-	@Autowired
-	private TradeCateService tcs = new TradeCateService();
 	@Autowired
 	private FormatUtil format;
 
@@ -53,14 +49,9 @@ public class TopAutoloadController {
 				stockId, "CNY");
 		BigDecimal latestprice = new BigDecimal(0);
 		
-		Btc_trade_category btc = new Btc_trade_category();
-		
 		if(exstock.equals("CNY")){
 		// 最新成交价
 			latestprice = btc_stock.getBtc_stock_price();
-		}else{
-			btc = tcs.getTradeCateByBtcid(stockId, exstock);
-			latestprice = btc.getTradec_price();
 		}
 		Btc_deal_list_today_vo btc_deal_list_today_vo = new Btc_deal_list_today_vo();
 		// 今日最高价

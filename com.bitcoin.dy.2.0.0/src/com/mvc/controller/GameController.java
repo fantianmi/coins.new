@@ -101,7 +101,7 @@ public class GameController {
 		int iamount = Integer.parseInt(amount);
 		//update btc_user
 		user.setGrade(user.getGrade()+iamount);
-		us.updateUser(user);
+		us.update(user);
 		
 		request.setAttribute("msg", "成功转如入"+amount+"个"+res.getString("game.stock.name")+"到游戏积分");
 		request.setAttribute("href", "game.do?room=1");
@@ -127,7 +127,7 @@ public class GameController {
 		}
 		//update btc_user
 		user.setGrade(user.getGrade()-iamount);
-		us.updateUser(user);
+		us.update(user);
 		session.setAttribute("globaluser", user);
 		
 		//update btc_holding

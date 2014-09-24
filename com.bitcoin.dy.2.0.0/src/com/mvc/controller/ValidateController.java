@@ -31,7 +31,7 @@ public class ValidateController {
 		Btc_user user = us.getByUsername(username);
 		if(user.getUvalidateCode().equals(code)){
 			user.setUstatus("active");
-			us.updateUser(user);
+			us.update(user);
 			if(session.getAttribute("globaluser")!=null){
 				session.setAttribute("globaluser", user);
 			}

@@ -26,6 +26,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.mvc.config.CoinConfig;
 import com.mvc.entity.Btc_birth;
 import com.mvc.entity.Btc_factory;
 import com.mvc.entity.Btc_fhDDC;
@@ -345,7 +346,7 @@ public class IndexController {
 			return "login";
 		}
 		Map<Integer, Btc_trade_category> selfStockMap = tcs
-				.getTradeCateByExstockMap("DDC");
+				.getTradeCateByExstockMap(CoinConfig.getTradecate_2());
 		List<Object> tradecatelist = tcs.getTradeCateList();
 		Map<Integer, Object> stock_map = stockService.getBtc_stock();
 		session.setAttribute("option", "add");
@@ -366,7 +367,7 @@ public class IndexController {
 		btc = tcs.getTradeCateByBtcid(tradecid);
 		session.setAttribute("btc", btc);
 		Map<Integer, Btc_trade_category> selfStockMap = tcs
-				.getTradeCateByExstockMap("DDC");
+				.getTradeCateByExstockMap(CoinConfig.getTradecate_2());
 		Map<Integer, Object> stock_map = stockService.getBtc_stock();
 		session.setAttribute("option", "update");
 		session.setAttribute("stock_map", stock_map);

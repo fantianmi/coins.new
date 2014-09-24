@@ -27,128 +27,59 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <head profile="http://gmpg.org/xfn/11">
 	<title><%=res.getString("host.title")%></title>
 	<jsp:include page="/include/htmlsrc.jsp" ></jsp:include>
+		<!-- coins_new -->
+  <link href="coins_new/css/zy.css" rel="stylesheet" type="text/css" />
+	<script type="text/javascript">
+    $(document).ready(function() {
+        $("#tuijie").addClass('selected');
+    });
+ </script>
 </head>
 <body>
 <jsp:include page="/include/headhtml.jsp"></jsp:include>
-	<!-- ######################################################## -->
-	<script type="text/javascript" src="js/jquery-1.3.2.min.js"></script>
-	<link href='styles/style.css' type='text/css' rel='stylesheet' />
-		<script type="text/javascript">
-		    $(document).ready(function() {
-		        $("#tuijie").addClass('selected');
-		    });
-		 </script>
-	<script type=text/javascript>
-	$(function(){
-		$('#btc_nav li').hover(function(){
-			$(this).children('ul').stop(true,true).show('slow');
-		},function(){
-			$(this).children('ul').stop(true,true).hide('slow');
-		});
-		
-		$('#btc_nav li').hover(function(){
-			$(this).children('div').stop(true,true).show('slow');
-		},function(){
-			$(this).children('div').stop(true,true).hide('slow');
-		});
-	});
-	</script>
-	<!-- copy process -->
-	<script type="text/javascript">
-	function copyToClipboard(txt) {
-	    if (window.clipboardData) {
-	        window.clipboardData.clearData();
-	        window.clipboardData.setData("Text", txt);
-	        alert("已经成功复制到剪帖板上！");
-	    } else if (navigator.userAgent.indexOf("Opera") != -1) {
-	        window.location = txt;
-	    } else if (window.netscape) {
-	        try {
-	            netscape.security.PrivilegeManager.enablePrivilege("UniversalXPConnect");
-	        } catch(e) {
-	            alert("被浏览器拒绝！\n请在浏览器地址栏输入'about:config'并回车\n然后将'signed.applets.codebase_principal_support'设置为'true'");
-	        }
-	        var clip = Components.classes['@mozilla.org/widget/clipboard;1'].createInstance(Components.interfaces.nsIClipboard);
-	        if (!clip) return;
-	        var trans = Components.classes['@mozilla.org/widget/transferable;1'].createInstance(Components.interfaces.nsITransferable);
-	        if (!trans) return;
-	        trans.addDataFlavor('text/unicode');
-	        var str = new Object();
-	        var len = new Object();
-	        var str = Components.classes["@mozilla.org/supports-string;1"].createInstance(Components.interfaces.nsISupportsString);
-	        var copytext = txt;
-	        str.data = copytext;
-	        trans.setTransferData("text/unicode", str, copytext.length * 2);
-	        var clipid = Components.interfaces.nsIClipboard;
-	        if (!clip) return false;
-	        clip.setData(trans, null, clipid.kGlobalClipboard);
-	        alert("已经成功复制到剪帖板上！");
-	    }
-	}
-	function copyTo(x) {
-	    var txt = document.getElementById(x).innerHTML;
-	    copyToClipboard(txt);
-	}
-	</script>
-	<!-- copy process -->
-<div class="wrapper row3">
-  <div id="container" style="padding: 0px 0px;">
-  <jsp:include page="/include/lpanel.jsp"></jsp:include>
-      <section class="clear">
-      <div style="margin-left: 40px; padding-top: 5px;border-bottom: 5px solid #0171C7;" id="usercenter">
-		<h2 style="margin-top:50px; margin-bottom:0px;color:#0171C7;font-weight: bold;">推广</h2>    
-		<p>推客多重奖励计划</p>
-        <!-- content row -->
-        <p>分享文字1：<button onclick="copyTo('text1')" class="button small blue">复制</button></p>
-	      <textarea rows="3" cols="100" id="text1" mouseEnabled="true"><%=res.getString("host.small.title")%>证券币上市火热筹备中<%=res.getString("host.small.title")%>，一切尽在<%=res.getString("host.small.title")%>  <%=basePath%>index.do?Register&id=<%=request.getAttribute("uid").toString() %></textarea>
-	      <p>分享文字2：<button onclick="copyTo('text2')" class="button small blue">复制</button></p>
-	      <textarea rows="3" cols="100"  id="text2" mouseEnabled="true"><%=res.getString("host.small.title")%>证券币上市火热筹备中<%=res.getString("host.small.title")%>，一切尽在<%=res.getString("host.small.title")%>  <%=basePath%>index.do?Register&id=<%=request.getAttribute("uid").toString() %></textarea>
-<p>请将上面链接复制后发给您要推荐的人</p>
-        <!-- content row -->
-        <!-- table row -->
-        <p style="font-size:16px; font-weight:700">您成功推荐的用户</p>
-	      <table summary="Summary Here" cellpadding="0" cellspacing="0">
-	        <thead>
-	          <tr>
-	            <th>用户名</th>
-	            <th>用户注册时间</th>
-	            <th>用户兑换您的奖励</th>
-	         
-	          </tr>
-	        </thead>
-	        <tbody>
-	       <%if(request.getAttribute("invitelist")==null){%>
-	       <tr>
-	            <td colspan=3>暂无记录</td>
-	       </tr>
-	       
-	       <%}else{
-	      	 List<TuijieViewModel> userlist = (List<TuijieViewModel>)request.getAttribute("invitelist");
+<jsp:include page="/include/nav.jsp" ></jsp:include>
+<div class="box2"> 
+  <jsp:include page="/include/lpanel.jsp" ></jsp:include>
+  <div class="user_r">
+    <div class="u_r_t">
+      <div class="u_r_t_l">欢迎进行推广</div>
+    </div>
+    <div class="user1">
+      <div class="reset1" style="margin-top:10px;">您的推广链接为：<b style="color:red;"><%=res.getString("host.small.title")%>  <%=basePath%>reg.jsp?id=<%=request.getAttribute("uid").toString() %></b><br>
+        <span style="color:#06F;">请将上面链接复制后发给您要推荐的人，通过该链接注册的用户在平台进行充值交易后您将获得平台股份币作为您平台的交易手续费分红凭证，获取丰厚回报</span> </div>
+      <table width="100%" border="0" cellspacing="1" cellpadding="0" style="margin-top:15px; background:#eee;">
+        <tr>
+          <td height="30" colspan="4" bgcolor="#FFFFFF" style="text-indent:10px; font-weight:600; font-size:14px;">您成功推荐的用户</td>
+        </tr>
+        <tr>
+          <td width="24%" height="30" align="center" valign="middle" bgcolor="#f9f9f9" style="font-weight:bold; color:#333;">用户名</td>
+          <td width="23%" align="center" valign="middle" bgcolor="#f9f9f9" style="font-weight:bold; color:#333;">用户注册时间</td>
+          <td width="27%" align="center" valign="middle" bgcolor="#f9f9f9" style="font-weight:bold; color:#333;">实名认证状态</td>
+          <td width="26%" align="center" valign="middle" bgcolor="#f9f9f9" style="font-weight:bold; color:#333;">是否获得的推广该用户奖励</td>
+        </tr>
+        <%if(request.getAttribute("invitelist")==null){%>
+        <tr>
+          <td height="30" align="center" valign="middle" bgcolor="#FFFFFF">暂无记录</td>
+          <td align="center" valign="middle" bgcolor="#FFFFFF">暂无记录</td>
+          <td align="center" valign="middle" bgcolor="#FFFFFF">暂无记录</td>
+          <td align="center" valign="middle" bgcolor="#FFFFFF">暂无记录</td>
+        </tr>
+        <%}else{
+        	List<TuijieViewModel> userlist = (List<TuijieViewModel>)request.getAttribute("invitelist");
 	      	TuijieViewModel user2 = new TuijieViewModel();
-	      	 for(int i=0;i<userlist.size();i++){
+	      	for(int i=0;i<userlist.size();i++){
 	      		 user2 = userlist.get(i);%>
 	      		 <tr>
 	            <td><%=user2.getUsername() %></td>
 	            <td><%=user2.getUsdtime() %></td>
-	            <td><%=user2.getRengouget()%></td>
+	            <td><%=user2.getIsAuthRealName()%></td>
+	            <td><%=user2.getIsGetTGaward()%></td>
 	          </tr>
-	      	 <%}
-	      	 
-	       } %>
-	          
-	        </tbody>
-	      </table>
-        <!-- table row -->
-        </div>
-      </section>
-      </div>
+	      	 <%}} %>
+      </table>
     </div>
-    </td></tr>
-</table>
-    <div class="clear"></div>
   </div>
 </div>
-
 <jsp:include page="/include/foothtml.jsp"></jsp:include>
 </div>
 </body>

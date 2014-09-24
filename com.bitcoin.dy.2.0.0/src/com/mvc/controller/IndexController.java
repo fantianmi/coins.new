@@ -1,5 +1,6 @@
 package com.mvc.controller;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -28,7 +29,6 @@ import com.mvc.entity.Btc_frc_rengou;
 import com.mvc.entity.Btc_holding;
 import com.mvc.entity.Btc_profit;
 import com.mvc.entity.Btc_stock;
-import com.mvc.entity.Btc_trade_category;
 import com.mvc.entity.Btc_user;
 import com.mvc.entity.Btc_votehistory;
 import com.mvc.entity.Btc_zhifubao;
@@ -46,7 +46,6 @@ import com.mvc.service.RechargeService;
 import com.mvc.service.RengouService;
 import com.mvc.service.StockOrderService;
 import com.mvc.service.StockService;
-import com.mvc.service.TradeCateService;
 import com.mvc.service.UserService;
 import com.mvc.service.VoteHistoryService;
 import com.mvc.service.VoteStockService;
@@ -86,8 +85,6 @@ public class IndexController {
 	@Autowired
 	private CotentService contents = new CotentService();
 	@Autowired
-	private TradeCateService tradecates = new TradeCateService();
-	@Autowired
 	private StockOrderService sos = new StockOrderService();
 	@Autowired
 	private BankService banks = new BankService();
@@ -120,8 +117,6 @@ public class IndexController {
 	public String load(ModelMap modelMap, HttpServletRequest request)
 			throws ParseException {
 		HttpSession session = request.getSession();
-		Map<String,List<Object>> nav = tradecates.getNav();
-		session.setAttribute("nav",nav);
 		int user_amount = us.countAllUser();
 		session.setAttribute("user_amount", user_amount);
 		Map<Integer, Object> allstockmap = stockService.getBtc_stockByState(1);
@@ -133,7 +128,6 @@ public class IndexController {
 		session.setAttribute("newslistall", contents.getNewsCAll());
 		session.setAttribute("stock_map_navigation", stock_map_navigation);
 		session.setAttribute("stock_map", stock_map);
-		
 		if (session.getAttribute("globaluser")!=null) {
 			Btc_user user = (Btc_user)session.getAttribute("globaluser");
 			if (user.getUname() == null) {
@@ -166,8 +160,6 @@ public class IndexController {
 		request.setAttribute("exId", exstockModel.getBtc_stock_id());
 		
 		HttpSession session = request.getSession();
-		Map<String,List<Object>> nav = tradecates.getNav();
-		session.setAttribute("nav",nav);
 		int user_amount = us.countAllUser();
 		session.setAttribute("user_amount", user_amount);
 		request.setAttribute("exstock", exstock);
@@ -183,21 +175,6 @@ public class IndexController {
 		Map<Integer, Object> stock_map = stockService.getBtc_stock();
 		Map<String, Object> stockmapbyname = stockService.getBtc_stockMapbyName();
 		session.setAttribute("stockmapbyname", stockmapbyname);
-		//自有币兑换区导航
-		if(tradecates.getTradeCateByExstock(exstock)!=null){
-			List<Object> selfstocktrade = tradecates.getTradeCateByExstock(exstock);
-			session.setAttribute("selfstocktrade", selfstocktrade);
-		}	
-		else{
-			session.setAttribute("selfstocktrade", null);
-		}
-		//对应币种的价格map键值对
-		if(tradecates.getTradeCateByExstockMap(exstock)!=null){
-			Map<Integer,Btc_trade_category> map2 = tradecates.getTradeCateByExstockMap(exstock);
-			request.setAttribute("exstocktrademap", map2);
-		}else{
-			request.setAttribute("exstocktrademap", null);
-		}
 		
 		request.setAttribute("userbidorder", null);
 		request.setAttribute("usersellorder", null);
@@ -355,8 +332,6 @@ public class IndexController {
 		session.setAttribute("userordermap", userordermap);
 		request.setAttribute("userdetail", user);
 		
-		Map<String,List<Object>> nav = tradecates.getNav();
-		session.setAttribute("nav",nav);
 		int user_amount = us.countAllUser();
 		Map<String, NaviStockModel> stock_map_navigation = stockService.getCoins4CNY();
 		session.setAttribute("stock_map_navigation", stock_map_navigation);
@@ -364,7 +339,7 @@ public class IndexController {
 		if (user.getUname() == null) {
 			request.setAttribute("msg", "首先进行实名认证");
 			request.setAttribute("href", "index.do?register2");
-			return "index";
+			return "redirect";
 		}
 		if (user.getUname() == null && user.getUcertification() == null) {
 			return "register2";
@@ -395,8 +370,6 @@ public class IndexController {
 		Map<String, NaviStockModel> stock_map_navigation = stockService.getCoins4CNY();
 		Map<Integer, Object> stock_map = stockService.getBtc_stock();
 		HttpSession session = request.getSession();
-		Map<String,List<Object>> nav = tradecates.getNav();
-		session.setAttribute("nav",nav);
 		Map<Integer, Object> allstockmap = stockService.getBtc_stockByState(1);
 		session.setAttribute("allstockmap", allstockmap);
 		int user_amount = us.countAllUser();
@@ -487,8 +460,6 @@ public class IndexController {
 	@RequestMapping(params = "Login")
 	public String gLogin(ModelMap modelMap, HttpServletRequest request) {
 		HttpSession session = request.getSession();
-		Map<String,List<Object>> nav = tradecates.getNav();
-		session.setAttribute("nav",nav);
 		session.setAttribute("newslist", contents.getNewsLimit());
 		session.setAttribute("newslistall", contents.getNewsCAll());
 		Map<Integer, Object> allstockmap = stockService.getBtc_stockByState(1);
@@ -645,7 +616,7 @@ public class IndexController {
 		if (session.getAttribute("globaluser") == null) {
 			request.setAttribute("msg", "登陆后才能进行此操作！");
 			request.setAttribute("href", "index.do");
-			return "index";
+			return "redirect";
 		} else {
 			Btc_user user = (Btc_user)session.getAttribute("globaluser");
 			if (user.getUname() == null && user.getUcertification() == null) {
@@ -662,7 +633,7 @@ public class IndexController {
 						request.setAttribute("msg", "对不起，您今日" + stock.getBtc_stock_name()
 								+ "的提币已达上限，请明日再提！");
 						request.setAttribute("href", "index.do");
-						return "index";
+						return "redirect";
 					}
 				}
 				request.setAttribute("todaywithdraw",
@@ -672,7 +643,7 @@ public class IndexController {
 				request.setAttribute("profit", profit);
 				request.setAttribute("orderilst",
 						sos.getBtc_inout_orderByUid(uid, stockid));
-				return "withdrawSTOCK";
+				return "withdrawStock";
 			}
 		}
 	}
@@ -953,14 +924,13 @@ public class IndexController {
 	}
 	
 	@RequestMapping(params = "tuijie")
-	public String tuijie(HttpServletRequest request, HttpServletResponse response) {
+	public String tuijie(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		HttpSession session = request.getSession();
 		int user_amount = us.countAllUser();
 		session.setAttribute("user_amount", user_amount);
 		if (session.getAttribute("globaluser") == null) {
-			request.setAttribute("msg", "登陆后才能进行此操作！");
-			request.setAttribute("href", "index.do");
-			return "login";
+			response.sendRedirect("login.jsp");
+			return null;
 		}
 		Btc_user user = (Btc_user)session.getAttribute("globaluser");
 		if (user.getUname() == null && user.getUcertification() == null) {
@@ -969,8 +939,8 @@ public class IndexController {
 		
 		
 		List<TuijieViewModel> tvmlist = new ArrayList<TuijieViewModel>();
-		if(us.getByInviteName(user.getUusername())!=null){
-			List<Object> invitelist = us.getByInviteName(user.getUusername());
+		if(us.getByRecommend(user.getUid())!=null){
+			List<Object> invitelist = us.getByRecommend(user.getUid());
 			for(int i=0;i<invitelist.size();i++){
 				Btc_user iuser = new Btc_user();
 				TuijieViewModel tvm = new TuijieViewModel();

@@ -51,13 +51,13 @@ function displayDayLine()
 			        title: {
 			            text: '价格'
 			        },
-			        height: 120,
+			        height: 100,
 			        lineWidth: 2
 			    }, {
 			        title: {
 			            text: '成交量'
 			        },
-			        top: 202,
+			        top: 152,
 			        height: 50,
 			        offset: 0,
 			        lineWidth: 2
@@ -141,13 +141,13 @@ function displayTimeLine()
 			        title: {
 			            text: '价格'
 			        },
-			        height: 120,
+			        height: 100,
 			        lineWidth: 2
 			    }, {
 			        title: {
 			            text: '成交量'
 			        },
-			        top: 202,
+			        top: 152,
 			        height: 50,
 			        offset: 0,
 			        lineWidth: 2
@@ -228,13 +228,13 @@ function display5minLine()
 			        title: {
 			            text: '价格'
 			        },
-			        height: 120,
+			        height: 100,
 			        lineWidth: 2
 			    }, {
 			        title: {
 			            text: '成交量'
 			        },
-			        top: 202,
+			        top: 152,
 			        height: 50,
 			        offset: 0,
 			        lineWidth: 2

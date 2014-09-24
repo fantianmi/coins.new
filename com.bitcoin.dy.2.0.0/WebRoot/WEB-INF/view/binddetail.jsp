@@ -22,32 +22,8 @@ user = (Btc_user)session.getAttribute("globaluser");
 <head profile="http://gmpg.org/xfn/11">
 	<title><%=res.getString("host.title")%></title>
 	<jsp:include page="/include/htmlsrc.jsp" ></jsp:include>
-	<script type="text/javascript" src="script/geo.js"></script>
-	<script type="text/javascript" src="script/data.js"></script>
-	<script type="text/javascript">
-		var msg = null;
-		function sendmsg() {
-			if (window.XMLHttpRequest) {
-				msg = new XMLHttpRequest();
-			} else if (window.ActiveXObject) {
-				msg = new ActiveXObject("Microsoft.XMLHTTP");
-			}
-			if (msg != null) {
-				var tel = '<%=user.getUphone()%>';
-				var url = 'msg.do?sendforpost&n=' + Math.random();
-				msg.onreadystatechange = showmsg;
-				msg.open("GET", url, true);
-				msg.send(null);
-			}
-		}
-	</script>
-	<script type="text/javascript">      
-      $(function(){           
-          $('#kaptchaImage').click(function () {//生成验证码  
-           $(this).hide().attr('src', 'general.do?captcha-image?' + Math.floor(Math.random()*100) ).fadeIn(); })      
-                });   
-      
-     </script> 
+		<!-- coins_new -->
+  <link href="coins_new/css/zy.css" rel="stylesheet" type="text/css" />
      <script type="text/javascript">
 		    $(document).ready(function() {
 		        $("#bankmanage").addClass('selected');
@@ -56,42 +32,33 @@ user = (Btc_user)session.getAttribute("globaluser");
 </head>
 <body>
 <jsp:include page="/include/headhtml.jsp"></jsp:include>
-<div class="wrapper row3">
-  <div id="container" style="padding: 0px 0px;">
-  <jsp:include page="/include/lpanel.jsp"></jsp:include>
-      <section class="clear">
-      <div style="margin-left: 40px; padding-top: 5px;border-bottom: 5px solid #0171C7;" id="binddetail">
-		<h2 style="margin-top:50px; margin-bottom:0px;color:#0171C7;font-weight: bold;">我的绑定信息</h2>    
-		<p>已进行绑定后在平台可以正常进行充值提现功能</p>
-	  </div>
-	  <div style="margin-left: 40px; padding-top: 5px;" id="binddetail">
-	  <%
+<jsp:include page="/include/nav.jsp" ></jsp:include>
+ <div class="box2"> 
+  <jsp:include page="/include/lpanel.jsp" ></jsp:include>
+  <div class="user_r">
+    <div class="u_r_t">
+      <div class="u_r_t_l">我的绑定信息&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-size: 0.8em">已进行绑定后在平台可以正常进行充值提现功能</span></div>
+      <!--<div class="u_r_t_r">您当前的资金估值为：<b style="font-size:14px; color:red;">0.00</b> 元人民币。 人民币余额：<b style="font-size:14px; color:red;">0.00 元</b></div>--> 
+    </div>
+    <div class="user1">
+    <%
 	  Btc_bank bank = (Btc_bank)request.getAttribute("bindinfo");
 	  String type="银行卡";
 	  if(bank.getBankname().equals("支付宝")){ type="支付宝";}
 	  %>
-        <!-- form row -->
-        <table>
-        <tbody>
-        <tr><th><span>类型</span></th><td><%=type %></td><th><span>银行</span></th><td><%=bank.getBankname() %></td> </tr>
-        <tr><th><span>地区</span></th><td><%=bank.getProvince() %> <%=bank.getCity() %> <%=bank.getTown() %></td><th><span>开户行</span></th><td><%=bank.getDepositbank() %></td> </tr>
-        <tr><th><span>账号</span></th><td><%=format.encipherCard(bank.getCard()) %></td><th><span>姓名</span></th><td><%=bank.getName() %></td> </tr>
-        <tr><th><span>状态</span></th><td><%=bank.getStatus() %></td><th><span>&nbsp;</span></th><td>&nbsp;</td> </tr>
-        </tbody>
-        </table>
-        <a href="bank.do?gochange"  class="btn small blue">修改绑定信息</a>
-        </div>
-        <!-- table row -->
-        
-      </section>
-      </div>
+	  <table width="100%" border="0" cellspacing="1" cellpadding="0" style="background:#eee; margin-top:15px;">
+    <tbody>
+    <tr ><th height="35" align="center" valign="middle" bgcolor="#f9f9f9" style="color:#333; font-weight:bold;"><span>类型</span></th><td height="35" align="center" valign="middle" bgcolor="#FFFFFF"><%=type %></td><th height="35" align="center" valign="middle" bgcolor="#f9f9f9" style="color:#333; font-weight:bold;"><span>银行</span></th><td height="35" align="center" valign="middle" bgcolor="#FFFFFF"><%=bank.getBankname() %></td> </tr>
+    <tr><th height="35" align="center" valign="middle" bgcolor="#f9f9f9" style="color:#333; font-weight:bold;"><span>地区</span></th><td height="35" align="center" valign="middle" bgcolor="#FFFFFF"><%=bank.getProvince() %> <%=bank.getCity() %> <%=bank.getTown() %></td><th height="35" align="center" valign="middle" bgcolor="#f9f9f9" style="color:#333; font-weight:bold;"><span>开户行</span></th><td height="35" align="center" valign="middle" bgcolor="#FFFFFF"><%=bank.getDepositbank() %></td> </tr>
+    <tr><th height="35" align="center" valign="middle" bgcolor="#f9f9f9" style="color:#333; font-weight:bold;"><span>账号</span></th><td height="35" align="center" valign="middle" bgcolor="#FFFFFF"><%=format.encipherCard(bank.getCard()) %></td><th height="35" align="center" valign="middle" bgcolor="#f9f9f9" style="color:#333; font-weight:bold;"><span>姓名</span></th><td height="35" align="center" valign="middle" bgcolor="#FFFFFF"><%=bank.getName() %></td> </tr>
+    <tr><th height="35" align="center" valign="middle" bgcolor="#f9f9f9" style="color:#333; font-weight:bold;"><span>状态</span></th><td height="35" align="center" valign="middle" bgcolor="#FFFFFF"><%=bank.getStatus() %></td><th height="35" align="center" valign="middle" bgcolor="#f9f9f9" style="color:#333; font-weight:bold;"><span>&nbsp;</span></th><td height="35" align="center" valign="middle" bgcolor="#FFFFFF">&nbsp;</td> </tr>
+    </tbody>
+    </table>
+    <br>
+    <a href="bank.do?gochange">修改绑定信息 >></a>
     </div>
-    </td></tr>
-</table>
-    <div class="clear"></div>
   </div>
 </div>
-
 <jsp:include page="/include/foothtml.jsp"></jsp:include>
 </div>
 </body>

@@ -11,6 +11,7 @@
 <meta property="qc:admins" content="170236745764571676375" />
 <link rel="icon" href="favicon.ico" type="image/x-icon" />
 <script type="text/javascript" src="script/coin/coincommon.js"></script>
+<script type="text/javascript" src="script/coin/user/index.js"></script>
 <!--coins source -->
 <link href="coins_new/css/common.css" rel="stylesheet" type="text/css" />
 <!-- source -->

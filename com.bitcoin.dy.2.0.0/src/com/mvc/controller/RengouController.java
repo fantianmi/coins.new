@@ -19,7 +19,6 @@ import com.mvc.entity.Btc_award;
 import com.mvc.entity.Btc_frc_info;
 import com.mvc.entity.Btc_frc_rengou;
 import com.mvc.entity.Btc_frc_rengou_log;
-import com.mvc.entity.Btc_holding;
 import com.mvc.entity.Btc_stock;
 import com.mvc.entity.Btc_user;
 import com.mvc.service.AccountService;
@@ -27,7 +26,6 @@ import com.mvc.service.GBservice;
 import com.mvc.service.ProfitService;
 import com.mvc.service.RengouService;
 import com.mvc.service.StockService;
-import com.mvc.service.UserService;
 import com.mvc.service.common.AwardService;
 import com.mvc.util.DataUtil;
 import com.mvc.util.HoldingUtil;
@@ -50,8 +48,6 @@ public class RengouController {
 	private GBservice gbs = new GBservice();
 	@Autowired
 	private MD5Util md5util;
-	@Autowired
-	private UserService us;
 	@Autowired
 	private ProfitService profits;
 	@Autowired
@@ -158,19 +154,18 @@ public class RengouController {
 		stock = stocks.getBtc_stockByStockname(res.getString("stock.rengou1.eng"));
 		
 		//在存在推荐人的情况下执行这个操作
-		if(user.getUinvite_username()!=null){
+		if(user.getRecommend()!=0){
 			int awardstockid=Integer.parseInt(res.getString("stock.tjduihuan.stockid"));
-			Btc_user inviter=us.getByUsername(user.getUinvite_username());
 			BigDecimal amount2inviter=profits.getConfig().getTjduihuan();
-			if(awards.get(inviter.getUid(),""+user.getUid()+"兑换推广赠送")==null){
-				holdutil.addStock(inviter.getUid(), awardstockid,amount2inviter );
+			if(awards.get(user.getRecommend(),""+user.getUid()+"兑换推广赠送")==null){
+				holdutil.addStock(user.getRecommend(), awardstockid,amount2inviter );
 			}
 			Btc_award award=new Btc_award();
 			award.setCoinamount(amount2inviter);
 			award.setCoinid(awardstockid);
 			award.setReason(""+user.getUid()+"兑换推广赠送");
 			award.setTime(datas.getTimeNow("second"));
-			award.setUid(inviter.getUid());
+			award.setUid(user.getRecommend());
 			awards.save(award);
 		}
 		

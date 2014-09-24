@@ -54,6 +54,18 @@ function hideSub(){
   <div class="head">
     <div class="menu"><a href="#" onmouseover="showSub(1)" onmouseout="hideSub()"><img src="coins_new/img/meun.jpg" width="22" height="14" /></a></div>
     <div class="logo"><a href="index.do"><img src="coins_new/img/logo.jpg" width="97" height="27" /></a></div>
+    <div id="menu_colum_nav"><ul>
+    <a href="index.do?usercenter"><li>用户中心</li></a>
+    <%if(session.getAttribute("globaluser")==null){ %>
+    <a href="index.do?Login"><li>登录</li></a><a href="reg.jsp"><li>注册</li></a>
+    <%}else{ 
+    Btc_user user=(Btc_user)session.getAttribute("globaluser");
+    String name=user.getUusername();
+    if(name.length()>14)name=name.substring(0,14)+"..";
+    %>
+    <a href="index.do?userdetail"><li><%=name %></li></a><a href="index.do?logout"><li>安全退出</li></a>
+    <%} %>
+    </ul></div>
   </div>
   <div class="menu_x">
     <div id="sub_1" onmouseover="showSub(1)" onmouseout="hideSub()" style="display:none;">

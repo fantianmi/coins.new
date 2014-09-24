@@ -93,8 +93,8 @@ public class UserService {
 		}	
 	}
 	
-	public List<Object> getByInviteName(String invite){
-		List<Object> list = entityDao.createQuery("select u from Btc_user u where u.uinvite_username='" + invite + "'");
+	public List<Object> getByRecommend(int r){
+		List<Object> list = entityDao.createQuery("select u from Btc_user u where u.recommend='" + r + "'");
 		if (list.size() != 0) {
 			return list;
 		}else{
@@ -102,15 +102,11 @@ public class UserService {
 		}	
 	}
 
-	public void register_step1(Btc_user user) {
+	public void save(Btc_user user) {
 		entityDao.save(user);
 	}
 	
-	public void register_step2(Btc_user user) {
-		entityDao.update(user);
-	}
-	
-	public void updateUser(Btc_user user) {
+	public void update(Btc_user user) {
 		entityDao.update(user);
 	}
 	

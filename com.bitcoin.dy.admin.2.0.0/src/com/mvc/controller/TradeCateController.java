@@ -48,12 +48,15 @@ public class TradeCateController {
 	public String createbank(HttpServletRequest request,
 			HttpServletResponse response) throws IOException {
 		String tradec_exstock = request.getParameter("tradec_exstock").toString();
+		
 		BigDecimal tradec_price = new BigDecimal(request.getParameter("tradec_price").toString());
 		int tradec_stockid = Integer.parseInt(request.getParameter("tradec_stockid").toString());
 		Btc_trade_category btc = new Btc_trade_category();
 		btc.setTradec_exstock(tradec_exstock);
 		btc.setTradec_price(tradec_price);
 		btc.setTradec_stockid(tradec_stockid);
+		int tradec_exstockid= Integer.parseInt(request.getParameter("tradec_exstockid"));
+		btc.setTradec_exstockid(tradec_exstockid);
 		tradecate.saveBtc_trade_category(btc);
 		request.setAttribute("msg", "添加成功");
 		request.setAttribute("href", "index.do?selfstock");
@@ -71,6 +74,8 @@ public class TradeCateController {
 		btc = tradecate.getTradeCateByBtcid(tradecid);
 		btc.setTradec_exstock(tradec_exstock);
 		btc.setTradec_price(tradec_price);
+		int tradec_exstockid= Integer.parseInt(request.getParameter("tradec_exstockid"));
+		btc.setTradec_exstockid(tradec_exstockid);
 		btc.setTradec_stockid(tradec_stockid);
 		tradecate.updateBtc_trade_category(btc);
 		request.setAttribute("msg", "修改成功");
