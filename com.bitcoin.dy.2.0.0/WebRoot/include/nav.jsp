@@ -14,12 +14,12 @@
 	while(it.hasNext()){
 	String key=(String)it.next();
 	NaviStockModel btc_stock = (NaviStockModel)stock_map_navigation.get(key);%>
-	<a href="index.do?stock&stockId=<%=btc_stock.getId()%>" <%if(index==0){ %>style="margin-left:0px;"<%} %>><%=btc_stock.getName()%>(<%=btc_stock.getEngName()%>)<br /><span style="color:#d80000;">CNY<%=format.trans(btc_stock.getNewsprice()) %></span><span id="<%=format.num2color(btc_stock.getZdf())%>">(<%=format.num2percent(btc_stock.getZdf())  %>%)</span></a> 
+	<a href="index.do?stock&stockId=<%=btc_stock.getId()%>" <%if(index==0){ %>style="margin-left:0px;"<%} %>><%=btc_stock.getName()%>(<%=btc_stock.getEngName()%>)<br /><span style="color:#d80000;">LTC <%=format.trans(btc_stock.getNewsprice()) %></span><span id="<%=format.num2color(btc_stock.getZdf())%>">(<%=format.num2percent(btc_stock.getZdf())  %>%)</span></a> 
 	<%
 	index++;
 	}}
 	%>
-   <a href="bz_show.asp">下一个币<br />欢迎投票</a> 
+   
    </div>
 </div>
 

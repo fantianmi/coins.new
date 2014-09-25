@@ -20,6 +20,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.mvc.config.CoinConfig;
 import com.mvc.entity.Btc_account_book;
 import com.mvc.entity.Btc_holding;
 import com.mvc.entity.Btc_order;
@@ -199,7 +200,7 @@ public class FormController {
 					btc_order.setTotalorder(btc_order_price.multiply(btc_order_amount));
 					btc_order.setBtc_order_time(btc_order_time);
 					btc_order.setUid(uid);
-					btc_order.setBtc_exstock_name("CNY");
+					btc_order.setBtc_exstock_name(CoinConfig.getMainCoinName());
 					btc_order.setBtc_order_status(0);
 					btc_order.setLockstatus(0);
 					orderService.saveOrder(btc_order);
@@ -347,7 +348,7 @@ public class FormController {
 		}
 		
 		if (exstockname == null) {
-			exstockname = "CNY";
+			exstockname = CoinConfig.getMainCoinName();
 		}
 		// ######################################################################
 		Btc_stock exstock = stockService.getBtc_stockByStockname(exstockname);
@@ -435,8 +436,7 @@ public class FormController {
 					if (btc_order_type.equals("bid")) {
 						BigDecimal btc_order_exchange = btc_order_price
 								.multiply(btc_order_amount);
-						Btc_holding userhold = holdingService.getBtc_holding(
-								uid, exstock.getBtc_stock_id());
+						Btc_holding userhold = holdingService.getBtc_holding(uid, exstock.getBtc_stock_id());
 						btc_order_exchange
 								.setScale(2, BigDecimal.ROUND_HALF_UP);
 						// 查询余额是否能够支付,公式：用户余额-（手续费+兑换额）

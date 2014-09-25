@@ -56,7 +56,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <div class="user_r">
     <div class="u_r_t">
       <div class="u_r_t_l">我的资金管理</div>
-      <div class="u_r_t_r">您当前的资金估值为：<b style="font-size:14px; color:red;"><%=request.getAttribute("otherCount").toString() %> </b> 元人民币。 人民币余额：<b style="font-size:14px; color:red;"><%=session.getAttribute("ab_cny").toString() %> 元</b></div>
+      <div class="u_r_t_r">您当前的资金估值为：<b style="font-size:14px; color:red;"><%=request.getAttribute("otherCount").toString() %> </b> LTC。 莱特币余额：<b style="font-size:14px; color:red;"><%=session.getAttribute("ab_cny").toString() %> LTC</b></div>
     </div>
     <div class="u_r_b">
       <ul>
@@ -83,7 +83,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	      	 total = orderamount.add(holdamount).add(frozenamount);
 	      	 totalCNY = total.multiply(stock.getBtc_stock_price()).setScale(2,BigDecimal.ROUND_HALF_UP);
 	      	 if(!stock.getBtc_stock_Eng_name().equals("GFB")){%>
-        <li><span><%=stock.getBtc_stock_name() %>/<%=stock.getBtc_stock_Eng_name()%></span><span><%=format.trans(holdamount)%></span><span><%=format.trans(orderamount)%></span><span><%=format.trans(total)%></span><span><a href="stockinout.do?withdrawStock&stockid=<%=stock.getBtc_stock_id() %>"  style="color:red;">充值</a> | <a href="index.do?withdrawStock&stockid=<%=stock.getBtc_stock_id() %>" style="color:#F90;">提现</a> | <a href="index.do?stock&stockId=<%=stock.getBtc_stock_id() %>"  style="color:#00F;">交易</a></span></li>
+        <li><span><%=stock.getBtc_stock_name() %>/<%=stock.getBtc_stock_Eng_name()%></span><span><%=format.trans(holdamount)%></span><span><%=format.trans(orderamount)%></span><span><%=format.trans(total)%></span><span><a href="coinProcess.do?generalAdr&stockid=<%=stock.getBtc_stock_id() %>"  style="color:red;">充值</a> | <a href="index.do?withdrawStock&stockid=<%=stock.getBtc_stock_id() %>" style="color:#F90;">提现</a> | <a href="index.do?stock&stockId=<%=stock.getBtc_stock_id() %>"  style="color:#00F;">交易</a></span></li>
             <%}else if(stock.getBtc_stock_Eng_name().equals("GFB")){
             	leftGFB=holdamount;
             	orderGFB=orderamount;
@@ -98,20 +98,20 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
       <table width="100%" border="0" cellspacing="1" cellpadding="0" style="margin-top:15px; background:#eee;">
   <tr>
     <td width="19%" height="35" align="right" valign="middle" bgcolor="#f9f9f9">可用股份币GFB：</td>
-    <td width="11%" align="left" valign="middle" bgcolor="#FFFFFF"> &nbsp;<%=leftGFB %></td>
+    <td width="11%" align="left" valign="middle" bgcolor="#FFFFFF"> &nbsp;<%=format.trans(leftGFB) %></td>
     <td width="16%" align="right" valign="middle" bgcolor="#f9f9f9">挂单股份币GFB：</td>
-    <td width="12%" align="left" valign="middle" bgcolor="#FFFFFF">&nbsp;<%=orderGFB %></td>
+    <td width="12%" align="left" valign="middle" bgcolor="#FFFFFF">&nbsp;<%=format.trans(orderGFB) %></td>
     <td width="15%" align="right" valign="middle" bgcolor="#f9f9f9">合计GFB：</td>
-    <td width="8%" align="left" valign="middle" bgcolor="#FFFFFF">&nbsp;<%=amountGFB %></td>
+    <td width="8%" align="left" valign="middle" bgcolor="#FFFFFF">&nbsp;<%=format.trans(amountGFB) %></td>
     <td width="19%" align="center" valign="middle" bgcolor="#F9F9F9" style="color:#333;">规则详情</td>
   </tr>
   <tr>
     <td height="35" align="right" valign="middle" bgcolor="#f9f9f9">可用紫币ZB：</td>
-    <td align="left" valign="middle" bgcolor="#FFFFFF">&nbsp;<%=leftZB %></td>
+    <td align="left" valign="middle" bgcolor="#FFFFFF">&nbsp;<%=format.trans(leftZB) %></td>
     <td align="right" valign="middle" bgcolor="#f9f9f9">挂单紫币ZB：</td>
-    <td align="left" valign="middle" bgcolor="#FFFFFF">&nbsp;<%=leftZB %></td>
+    <td align="left" valign="middle" bgcolor="#FFFFFF">&nbsp;<%=format.trans(leftZB) %></td>
     <td align="right" valign="middle" bgcolor="#f9f9f9">合计紫币ZB：</td>
-    <td align="left" valign="middle" bgcolor="#FFFFFF">&nbsp;<%=leftZB %></td>
+    <td align="left" valign="middle" bgcolor="#FFFFFF">&nbsp;<%=format.trans(leftZB) %></td>
     <td align="center" valign="middle" bgcolor="#FFFFFF">&nbsp;</td>
   </tr>
 </table>

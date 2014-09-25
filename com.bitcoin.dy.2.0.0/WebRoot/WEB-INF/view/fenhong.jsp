@@ -66,7 +66,6 @@ user = (Btc_user)session.getAttribute("globaluser");
   <div class="user_r">
     <div class="u_r_t">
       <div class="u_r_t_l">领取分红赠送</div>
-      <!--<div class="u_r_t_r">您当前的资金估值为：<b style="font-size:14px; color:red;">0.00</b> 元人民币。 人民币余额：<b style="font-size:14px; color:red;">0.00 元</b></div>--> 
     </div>
  <%
 BigDecimal count = new BigDecimal(0);
@@ -97,7 +96,7 @@ $(document).ready(function(){
       <table width="100%" border="0" cellspacing="0" cellpadding="0" style="margin-top:15px;">
         <tr>
           <td width="16%" height="35" align="right" valign="middle" style="font-weight:bold; color:#333;">可领取的GFB分红：</td>
-          <td width="84%"><%=count %> 人民币 </td>
+          <td width="84%"><%=count %> LTC</td>
         </tr>
         <form action="fenhong.do?getfenhong" id="form1" method="post">
          <input type="hidden" name="amount" value=""/>

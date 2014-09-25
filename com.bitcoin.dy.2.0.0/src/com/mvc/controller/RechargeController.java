@@ -17,6 +17,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.mvc.config.CoinConfig;
 import com.mvc.entity.Btc_account_book;
 import com.mvc.entity.Btc_bank;
 import com.mvc.entity.Btc_profit;
@@ -55,7 +56,7 @@ public class RechargeController {
 		return "index";
 	}
 
-	@RequestMapping(params = "CNY")
+	@RequestMapping(params ="CNY")
 	public String rechargeCNY(ModelMap modelMap, HttpServletRequest request) {
 		HttpSession session = request.getSession();
 		if (session.getAttribute("globaluser") == null) {

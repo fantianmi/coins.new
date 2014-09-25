@@ -16,6 +16,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.mvc.config.CoinConfig;
 import com.mvc.entity.Btc_stock;
 import com.mvc.service.DealService;
 import com.mvc.service.StockService;
@@ -40,16 +41,16 @@ public class TopAutoloadController {
 			@RequestParam("stockId") int stockId,
 			ModelMap modelMap, HttpServletRequest request,
 			HttpServletResponse response) throws ParseException, IOException {
-		String exstock = "CNY";
+		String exstock = CoinConfig.getMainCoinName();
 		if(request.getParameter("exstock")!=null){
 			exstock = request.getParameter("exstock").toString();
 		}
 		// #######################################
 		Btc_stock btc_stock = stockService.getBtc_stockByIdandExchangeStock(
-				stockId, "CNY");
+				stockId, CoinConfig.getMainCoinName());
 		BigDecimal latestprice = new BigDecimal(0);
 		
-		if(exstock.equals("CNY")){
+		if(exstock.equals(CoinConfig.getMainCoinName())){
 		// 最新成交价
 			latestprice = btc_stock.getBtc_stock_price();
 		}

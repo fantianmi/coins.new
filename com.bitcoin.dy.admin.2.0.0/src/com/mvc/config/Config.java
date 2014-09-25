@@ -8,8 +8,11 @@ import org.apache.commons.configuration.Configuration;
 import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.configuration.PropertiesConfiguration;
 
+import com.mvc.vo.RetCode;
+
 
 public class Config {
+	private static ThreadLocal<RetCode> tRetCode = new ThreadLocal<RetCode>();
 	private static ThreadLocal<String> tErrorString = new ThreadLocal<String>();
 	private static Configuration config;
 	
@@ -17,6 +20,10 @@ public class Config {
 		URL configUrl = Thread.currentThread().getContextClassLoader().getResource("stock.properties");
 		System.out.println("load config from " + configUrl.getFile());
 		config = new PropertiesConfiguration(configUrl.getFile());  
+	}
+	
+	public static void setRetCode(RetCode ret) {
+		tRetCode.set(ret);
 	}
 
 	static {

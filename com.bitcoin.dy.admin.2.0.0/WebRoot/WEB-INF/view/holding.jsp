@@ -44,7 +44,7 @@
                             <li>
                                 <a href="#"  style="font-size: 16px;color:#666;line-height: 35px;height:60px;background-color: #fff">&nbsp;&nbsp;选择币种：&nbsp;&nbsp;<%=request.getAttribute("currentCoin").toString() %>&nbsp;&nbsp;↓</a>
                                 <ul class="dd-list">
-                                    <li><a href="holding.do?cny"><span class="isw-target"></span>人民币</a></li>
+                                    <li><a href="holding.do?cny"><span class="isw-target"></span>莱特币</a></li>
                                 <%if(session.getAttribute("stockmap")!=null){
                                 	Map<Integer,Btc_stock> stockmap=(Map<Integer,Btc_stock>)session.getAttribute("stockmap");
                                 	Iterator it=stockmap.keySet().iterator();

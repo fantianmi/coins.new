@@ -67,6 +67,7 @@ import com.mvc.service.VoteStockService;
 import com.mvc.service.ZhifubaoService;
 import com.mvc.util.CookieHelper;
 import com.mvc.util.DataUtil;
+import com.mvc.util.FormatUtil;
 import com.mvc.util.TJUtil;
 import com.mvc.vo.FactoryGBConfigModel;
 import com.mvc.vo.GBConfigModel;
@@ -110,9 +111,7 @@ public class IndexController {
 	@Autowired
 	private BankService banks = new BankService();
 	@Autowired
-	private TongjiService tongjis = new TongjiService();
-	@Autowired
-	private PoundageService ps = new PoundageService();
+	private FormatUtil format;
 	@Autowired
 	private FhOrderService fhos = new FhOrderService();
 	@Autowired
@@ -170,7 +169,7 @@ public class IndexController {
 			session.setAttribute("outcomeSock_list", outcomeSock_list);
 			session.setAttribute("incomeCNY", incomeCNY);
 			session.setAttribute("outcomeCNY", outcomeCNY);
-			session.setAttribute("profit", profit);
+			session.setAttribute("profit", format.trans(profit));
 			session.setAttribute("user_amount", user_amount);
 			session.setAttribute("cny_amount", cny_amount);
 			return "index";

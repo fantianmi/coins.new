@@ -18,26 +18,17 @@
             }
             
 </script>
-    <!--###################top##############--> 
 	<jsp:include page="/include/headhtml.jsp"></jsp:include>
-	<!--###################/top##############--> 
-    <!--#######################lpanel########################-->
 	<jsp:include page="/include/lpanelhtml.jsp"></jsp:include>
-    <!--#######################/lpanel########################-->    
     <div class="content">
-        
-        <!--#####################position##################-->
         <jsp:include page="/include/pathpanelhtml.jsp"></jsp:include>
-        <!--#####################/position##################-->
-        <!-- ####################content area############### -->
         <div class="workplace">
-
             <div class="row-fluid">
 	            <div class="span12">
 	            		<form id="myForm" action="" method="post">                    
 	                    <div class="head">
 	                        <div class="isw-grid"></div>
-	                        <h1>山寨币订单管理</h1>
+	                        <h1>虚拟币提现申请</h1>
 	                        <ul class="buttons">
 	                            <li>
 	                                <a href="#" class="isw-settings"></a>
@@ -131,7 +122,7 @@
                 <div class="span12">                    
                     <div class="head">
                         <div class="isw-grid"></div>
-                        <h1>山寨币提现记录</h1>     
+                        <h1>虚拟币提现记录</h1>     
                				<ul class="buttons">
 	                            <li>
 	                                <a href="#" class="isw-settings"></a>
@@ -215,7 +206,6 @@
                  
             
         </div>
-        <!-- ####################/content area############### -->
     </div>   
 </body>
 </html>

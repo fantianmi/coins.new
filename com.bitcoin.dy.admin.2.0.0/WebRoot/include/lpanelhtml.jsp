@@ -33,36 +33,6 @@
                     <span class="isw-grid"></span><span class="text">设置</span>
                 </a>
             </li>
-            <!--######################################-->
-            <li id="phonecard">
-                <a href="phonecard.do">
-                    <span class="isw-grid"></span><span class="text">手机充值卡管理</span>
-                </a>
-            </li>
-            <!--######################################-->
-            <li class="openable">
-                <a href="#">
-                    <span class="isw-list"></span><span class="text"><%=res.getString("stock.rengou1.name")%>以及兑换管理</span>
-                </a>
-                <ul>
-                    <li id="GBsetting">
-                        <a href="index.do?GBsetting">
-                            <span class="icon-th-large"></span><span class="text"><%=res.getString("stock.rengou1.name")%>/工厂/兑换[设置]</span>
-                        </a>                  
-                    </li>        
-                    <li id="buildStockDelivery">
-                        <a href="index.do?buildStockDelivery">
-                            <span class="icon-th-large"></span><span class="text">铸币发放</span>
-                        </a>                  
-                    </li> 
-                    <li id="rengoulog">
-                        <a href="index.do?rengoulog">
-                            <span class="icon-th-large"></span><span class="text">用户兑换记录</span>
-                        </a>                  
-                    </li>                                                                                     
-                </ul> 
-            </li>  
-            <!--######################################-->
             <li class="openable">
                 <a href="#">
                     <span class="isw-list"></span><span class="text">用户及订单管理</span>
@@ -78,29 +48,14 @@
                             <span class="icon-th-large"></span><span class="text">用户资金管理</span>
                         </a>                  
                     </li>
-                    <li id="bankmanage">
-                        <a href="index.do?bankmanage">
-                            <span class="icon-th-large"></span><span class="text">银行/支付宝开通申请</span>
-                        </a>                  
-                    </li>           
-                    <li id="orders">
-                        <a href="index.do?orders">
-                            <span class="icon-th-large"></span><span class="text">人民币充值订单管理</span>
-                        </a>                  
-                    </li>                                           
-                    <li id="withrawCNYorders">
-                        <a href="index.do?withrawCNYorders">
-                            <span class="icon-th-large"></span><span class="text">人民币提现订单管理</span>
-                        </a>                  
-                    </li>                                           
                     <li id="rechargestockorder">
                         <a href="index.do?rechargestockorder">
-                            <span class="icon-th-large"></span><span class="text">山寨币充值订单管理</span>
+                            <span class="icon-th-large"></span><span class="text">虚拟币充值订单管理</span>
                         </a>                  
                     </li>                                           
                     <li id="withdrawstockorder">
                         <a href="index.do?withdrawstockorder">
-                            <span class="icon-th-large"></span><span class="text">山寨币提现订单管理</span>
+                            <span class="icon-th-large"></span><span class="text">虚拟币提现订单管理</span>
                         </a>                  
                     </li>                                           
                 </ul> 
@@ -111,21 +66,11 @@
                     <span class="isw-list"></span><span class="text">分红管理</span>
                 </a>
                 <ul>
-                    <li id="deliverDDC">
-                        <a href="index.do?deliverDDC">
-                            <span class="icon-th-large"></span><span class="text">每日达到发放红利币的用户</span>
-                        </a>                  
-                    </li>          
                     <li id="fenhonginput">
                         <a href="index.do?fenhonginput">
                             <span class="icon-th-large"></span><span class="text">手续费分红</span>
                         </a>                  
                     </li>                                           
-                    <li id="ddcpool">
-                        <a href="index.do?ddcpool">
-                            <span class="icon-th-large"></span><span class="text"><%=res.getString("stock.fenhong.name")%>矿池查看</span>
-                        </a>                  
-                    </li>                                                                                    
                 </ul> 
             </li>
             <!--#######################################################################-->   
@@ -139,11 +84,6 @@
                             <span class="icon-th-large"></span><span class="text">币种管理</span>
                         </a>                  
                     </li> 
-                    <li id="selfstock">
-                        <a href="index.do?selfstock">
-                            <span class="icon-th-large"></span><span class="text">自由兑换币种管理</span>
-                        </a>                  
-                    </li>         
                 </ul>                
             </li>   
             <li id="mailconfig">
@@ -159,27 +99,9 @@
             
             <li id="caiwuguanli">
                 <a href="index.do">
-                    <span class="isw-grid"></span><span class="text">财务管理（收支明细）</span>
+                    <span class="isw-grid"></span><span class="text">平台收支明细</span>
                 </a>
             </li> 
-            
-            <li class="openable">
-                <a href="#">
-                    <span class="isw-list"></span><span class="text">网站内容管理</span>
-                </a>
-                <ul>
-                    <li id="contentmanager">
-                        <a href="index.do?contentmanager">
-                            <span class="icon-th"></span><span class="text">添加内容</span>
-                        </a>                  
-                    </li>          
-                    <li id="contentlist">
-                        <a href="index.do?contentlist">
-                            <span class="icon-th-large"></span><span class="text">平台所有内容</span>
-                        </a>                  
-                    </li>                                           
-                </ul>                
-            </li>                                                                    
         </ul>
         <!--###################/dashbordpanel##########################-->
         <div class="dr"><span></span></div>

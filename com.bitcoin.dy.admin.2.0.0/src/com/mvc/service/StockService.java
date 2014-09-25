@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.mvc.config.CoinConfig;
 import com.mvc.dao.EntityDao;
 import com.mvc.entity.Btc_stock;
 import com.mvc.entity.Btc_stock;
@@ -42,7 +43,7 @@ public class StockService {
 	}
 	
 	public Map<Integer, Object> getBtc_stockAll(){
-		List<Object> list = entityDao.createQuery("select btc_stock from Btc_stock btc_stock group by btc_stock.btc_stock_name");
+		List<Object> list = entityDao.createQuery("select btc_stock from Btc_stock btc_stock where btc_stock.btc_stock_id!=1001 group by btc_stock.btc_stock_name");
 		Map<Integer, Object> stock_map = new HashMap<Integer, Object>();
 		if (list.size() != 0) {
 			for(int i=0;i<list.size();i++){

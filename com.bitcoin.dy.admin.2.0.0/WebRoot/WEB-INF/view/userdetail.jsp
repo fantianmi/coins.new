@@ -100,15 +100,11 @@
                             </tr>
                             </form>
 					  <%}%>
-                              <tr>                                    
-                                  <td>总资产</td>
-                                  <td><%=format.trans(otherCount) %></td>                    
-                                  <td></td>                    
-                              </tr>
+                             
                               <form action="detail.do?changecny" method="post"/>
 						  		<input type="hidden" name="uid" value="<%=uid %>"/>
 						  		<tr>                                    
-	                                <td>人民币余额</td>
+	                                <td>莱特币余额</td>
 	                                <td>
 	                                <input type="text" value="<%=format.trans(cny)%>" name="amount"/>
 	                                </td>                    
@@ -117,6 +113,11 @@
 	                                </td>                    
 	                            </tr>
 	                            </form>
+	                             <tr>                                    
+                                  <td>总资产</td>
+                                  <td><%=format.trans(otherCount) %></td>                    
+                                  <td></td>                    
+                              </tr>
                             </tbody>
                         </table>
                     </div>
@@ -152,11 +153,6 @@
                             <div class="clear"></div>
                         </div>  
                         <div class="row-form">
-                            <div class="span3">绑定手机:</div>
-                            <div class="span9"><input value="<%=uphone %>" name="uphone" type="text"></div>
-                            <div class="clear"></div>
-                        </div> 
-                        <div class="row-form">
                             <div class="span3">&nbsp;</div>
                             <div class="span9"><input type="submit" class="btn btn-warning" value="确认修改用户信息(警告！)"></div>
                             <div class="clear"></div>
@@ -169,152 +165,6 @@
                 
             </div>
             <div class="dr"><span></span></div> 
-            <script type="text/javascript">
-            function drechargelog(){
-                document.getElementById("rechargelog").action = "usermanager.do?drechargelog";
-                document.getElementById("rechargelog").submit();
-            }
-			</script>
-             <!-- row span -->
-            <div class="row-fluid">
-                <div class="span12">                    
-                    <div class="head">
-                        <div class="isw-grid"></div>
-                        <h1>充值记录</h1>    
-                        <ul class="buttons">
-                            <li>
-                                <a href="#" class="isw-settings"></a>
-                                <ul class="dd-list">
-                                    <li><a onclick="drechargelog();" href="#"><span class="isw-delete"></span>删除</a></li>
-                                </ul>
-                            </li>
-                        </ul>     
-                        <div class="clear"></div>
-                    </div>
-                    <div class="block-fluid" style="height:200px; overflow:auto">
-                    <form id="rechargelog" action="" method="post">
-                    <input type="hidden" name="uid" value="<%=uid%>"/>
-                        <table class="table" cellpadding="0" cellspacing="0" width="100%">
-                            <thead>
-                                <tr>               
-                                	<th><input type="checkbox" name="checkall"/></th>                     
-                                    <th width="10%">id</th>
-                                    <th width="10%">金额</th>
-                                    <th width="30%">时间</th>
-                                    <th width="40%">状态</th>
-                                    <th width="10%">方式</th>                                    
-                                </tr>
-                            </thead>
-                            <tbody>
-                            <%
-                            BigDecimal rtotal = new BigDecimal(0);
-                            if(request.getAttribute("rcnylistm")!=null){
-                            	List<UserRcnyModel> rcnylistm = (List<UserRcnyModel>)request.getAttribute("rcnylistm");
-                            	UserRcnyModel urcm = new UserRcnyModel();
-                            	
-                            	for(int i=0;i<rcnylistm.size();i++){
-                            		urcm = rcnylistm.get(i);
-                            		rtotal = rtotal.add(urcm.getAmount());
-                            		%>
-                            		<tr>                
-                            			<td><input type="checkbox" name="checkbox" value="<%=urcm.getId()%>"/></td>                    
-	                                    <td><%=urcm.getId() %></td>
-	                                    <td><%=format.trans(urcm.getAmount()) %></td>
-	                                    <td><%=urcm.getRtime() %></td>
-	                                    <td><%=urcm.getUstatus() %></td>
-	                                    <td><%=urcm.getRway() %></td>
-	                                </tr>
-                           <%} } %>
-                            </tbody>
-                        </table>
-                        </form>      
-                    </div>
-                    <div class="block-fluid">
-                        <table class="table" cellpadding="0" cellspacing="0" width="100%" >
-                            <thead>
-                                <tr>                                    
-                                    <th colspan="4">总计：<%=format.trans(rtotal) %> CNY</th>                                 
-                                </tr>
-                            </thead>
-                        </table>
-                    </div>
-                </div>
-            </div>
-            <div class="dr"><span></span></div>
-             <script type="text/javascript">
-	            function dwithdrawlog(){
-	                document.getElementById("withdrawlog").action = "usermanager.do?dwithdrawlog";
-	                document.getElementById("withdrawlog").submit();
-	            }
-				</script>
-            <!-- row span -->
-            <div class="row-fluid">
-                <div class="span12">                    
-                    <div class="head">
-                        <div class="isw-grid"></div>
-                        <h1>提现记录</h1>
-                        <ul class="buttons">
-                            <li>
-                                <a href="#" class="isw-settings"></a>
-                                <ul class="dd-list">
-                                    <li><a onclick="dwithdrawlog();" href="#"><span class="isw-delete"></span>删除</a></li>
-                                </ul>
-                            </li>
-                        </ul>       
-                        <div class="clear"></div>
-                    </div>
-                    <div class="block-fluid" style="height:200px; overflow:auto">
-                     <form id="withdrawlog" action="" method="post">
-                     	<input type="hidden" name="uid" value="<%=uid%>"/>
-                        <table class="table" cellpadding="0" cellspacing="0" width="100%">
-                            <thead>
-                                <tr>  
-                                	<th><input type="checkbox" name="checkall"/></th>                                      
-                                    <th width="5%">金额</th>
-                                    <th width="13.5%">时间</th>
-                                    <th width="30%">状态</th>
-                                    <th width="7.5%">收款人</th>                                    
-                                    <th width="15%">地区</th>                                    
-                                    <th width="14%">银行</th>                                    
-                                    <th width="15%">银行卡号</th>                                    
-                                </tr>
-                            </thead>
-                            <tbody>
-                            <%
-                            BigDecimal wtotal = new BigDecimal(0);
-                            if(request.getAttribute("wcnylistm")!=null){
-                            	List<UserWcnyModel> wcnylistm = (List<UserWcnyModel>)request.getAttribute("wcnylistm");
-                            	UserWcnyModel uwcm = new UserWcnyModel();
-                            	for(int i=0;i<wcnylistm.size();i++){
-                            		uwcm = wcnylistm.get(i);
-                            		wtotal = wtotal.add(uwcm.getWmaount());%>
-                            		<tr>                     
-                            			<td><input type="checkbox" name="checkbox" value="<%=uwcm.getId()%>"/></td>                 
-	                                    <td><%=format.trans(uwcm.getWmaount()) %></td>
-	                                    <td><%=uwcm.getRtime() %></td>
-	                                    <td><%=uwcm.getRstatus() %></td>
-	                                    <td><%=uwcm.getRname() %></td>
-	                                    <td><%=uwcm.getKaihubank() %></td>
-	                                    <td><%=uwcm.getBank() %></td>
-	                                    <td><%=uwcm.getCard() %></td>
-	                                </tr>
-                            <%}}%>
-                            </tbody>
-                        </table>
-                        </form>
-                    </div>
-                    <div class="block-fluid">
-                        <table class="table" cellpadding="0" cellspacing="0" width="100%" >
-                            <thead>
-                                <tr>                                    
-                                    <th colspan="7">总计：<%=format.trans(wtotal) %>CNY</th>
-                                </tr>
-                            </thead>
-                        </table>
-                    </div>
-                </div>                                
-                
-            </div>
             <!-- row span -->
              <script type="text/javascript">
 	            function drechargeslog(){

@@ -8,6 +8,7 @@ import java.util.ResourceBundle;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.mvc.config.CoinConfig;
 import com.mvc.entity.Btc_deal_list;
 import com.mvc.entity.Btc_incomeCNY;
 import com.mvc.entity.Btc_incomeStock;
@@ -78,8 +79,8 @@ public class MatchAlgorithmUtil2 {
 		boolean nonelist = false;
 		
 		Btc_order lockoder = new Btc_order();
-		List<Object> buyingOrderList = orderService.getBuyingOrdersByLimit(btc_stock_id,"CNY",0,5);
-		List<Object> sellingOrderList = orderService.getSellingOrdersByLimit(btc_stock_id,"CNY",0,5);
+		List<Object> buyingOrderList = orderService.getBuyingOrdersByLimit(btc_stock_id,CoinConfig.getMainCoinName(),0,5);
+		List<Object> sellingOrderList = orderService.getSellingOrdersByLimit(btc_stock_id,CoinConfig.getMainCoinName(),0,5);
 		if(buyingOrderList==null||sellingOrderList==null) return;
 		for(int i=0;i<buyingOrderList.size();i++){
 			lockoder = (Btc_order)buyingOrderList.get(i);
@@ -168,7 +169,7 @@ public class MatchAlgorithmUtil2 {
 				bro.setBtc_order_success_time(time);
 				buyingOrderList.set(buying_list_index-1, bro);
 			}
-			Btc_deal_list bsl_db = new Btc_deal_list(bro.getBtc_order_id(),bso.getBtc_order_id(),dealquantity,dealRate,time,dealquantity.multiply(dealRate),btc_stock_id,type,"CNY",bro.getUid(),bso.getUid(),bro.getBtc_order_price());
+			Btc_deal_list bsl_db = new Btc_deal_list(bro.getBtc_order_id(),bso.getBtc_order_id(),dealquantity,dealRate,time,dealquantity.multiply(dealRate),btc_stock_id,type,CoinConfig.getMainCoinName(),bro.getUid(),bso.getUid(),bro.getBtc_order_price());
 			btc_deal_list.add(bsl_db);
 			
 			if(selling_list_index>=sellingOrderList.size())hasNextSell=false;
@@ -227,17 +228,19 @@ public class MatchAlgorithmUtil2 {
 			awards.awardStock(buyer_id, Integer.parseInt(res.getString("stock.tradeaward.stockid")), buyuget);
 			
 			//交易完成，更改完买卖家的账户之后进行记账
-			Btc_incomeCNY btc_incomeCNY = new Btc_incomeCNY();
-			btc_incomeCNY.setBtc_incomeCNY_amount(trade_poundage_amount);
-			btc_incomeCNY.setBtc_incomeCNY_reason(buyer_id+"与"+seller_id+"进行撮合交易手续费收入");
-			btc_incomeCNY.setBtc_incomeCNY_time(btc_deal_list_db.getBtc_deal_time());
-			Btc_incomeStock income_Stock = new Btc_incomeStock();
-			income_Stock.setBtc_incomeStock_amount(trade_stock_poundage_amount);
-			income_Stock.setBtc_incomeStock_name(btc_stock.getBtc_stock_name());
-			income_Stock.setBtc_incomeStock_reason(buyer_id+"与"+seller_id+"进行撮合交易手续费收入");
-			income_Stock.setBtc_incomeStock_time(btc_deal_list_db.getBtc_deal_time());
-			financeService.saveIncomeStock(income_Stock);
-			financeService.saveIncomeCNY(btc_incomeCNY);
+			if(trade_poundage_amount.compareTo(new BigDecimal(0))>0){
+				Btc_incomeCNY btc_incomeCNY = new Btc_incomeCNY();
+				btc_incomeCNY.setBtc_incomeCNY_amount(trade_poundage_amount);
+				btc_incomeCNY.setBtc_incomeCNY_reason(buyer_id+"与"+seller_id+"进行撮合交易手续费收入");
+				btc_incomeCNY.setBtc_incomeCNY_time(btc_deal_list_db.getBtc_deal_time());
+				Btc_incomeStock income_Stock = new Btc_incomeStock();
+				income_Stock.setBtc_incomeStock_amount(trade_stock_poundage_amount);
+				income_Stock.setBtc_incomeStock_name(btc_stock.getBtc_stock_name());
+				income_Stock.setBtc_incomeStock_reason(buyer_id+"与"+seller_id+"进行撮合交易手续费收入");
+				income_Stock.setBtc_incomeStock_time(btc_deal_list_db.getBtc_deal_time());
+				financeService.saveIncomeStock(income_Stock);
+				financeService.saveIncomeCNY(btc_incomeCNY);
+			}
 		}
 		stockService.updateStock(btc_stock);
 		Btc_order btc_reachargeBTC_order_db = new Btc_order();
@@ -258,8 +261,8 @@ public class MatchAlgorithmUtil2 {
 		/**
 		 * 检查是否继续撮合
 		 */
-		BigDecimal latestBuy = orderService.getFirstBuyPrice(btc_stock_id, "CNY");
-		BigDecimal latestSell = orderService.getFirstSellPrice(btc_stock_id, "CNY");
+		BigDecimal latestBuy = orderService.getFirstBuyPrice(btc_stock_id, CoinConfig.getMainCoinName());
+		BigDecimal latestSell = orderService.getFirstSellPrice(btc_stock_id, CoinConfig.getMainCoinName());
 		if(latestBuy.compareTo(new BigDecimal(0))>0&&latestSell.compareTo(new BigDecimal(0))>0&&latestBuy.compareTo(latestSell)>=0){
 			this.matchAlgorithm(btc_stock_id, type);
 		}

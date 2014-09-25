@@ -79,7 +79,7 @@ public class HoldingController {
 			if(usermap.get(acount.getUid())==null)continue;
 			user=(Btc_user)usermap.get(acount.getUid());
 			userVo.setAmount(acount.getAb_cny());
-			userVo.setCoinname("人民币");
+			userVo.setCoinname("莱特币");
 			userVo.setId(user.getUid());
 			userVo.setName(user.getUname());
 			userVo.setUsername(user.getUusername());
@@ -124,19 +124,21 @@ public class HoldingController {
 		Btc_user user=new Btc_user();
 		List<UserHold> userListVo=new ArrayList<UserHold>();
 		//pack
-		for(int i=0;i<acountlist.size();i++){
-			acount=(Btc_holding)acountlist.get(i);
-			UserHold userVo=new UserHold();
-			if(usermap.get(acount.getUid())==null)continue;
-			user=(Btc_user)usermap.get(acount.getUid());
-			userVo.setAmount(acount.getBtc_stock_amount());
-			userVo.setCoinname(stock.getBtc_stock_name());
-			userVo.setId(user.getUid());
-			userVo.setName(user.getUname());
-			userVo.setUsername(user.getUusername());
-			userListVo.add(userVo);
+		if(acountlist!=null){
+			for(int i=0;i<acountlist.size();i++){
+				acount=(Btc_holding)acountlist.get(i);
+				UserHold userVo=new UserHold();
+				if(usermap.get(acount.getUid())==null)continue;
+				user=(Btc_user)usermap.get(acount.getUid());
+				userVo.setAmount(acount.getBtc_stock_amount());
+				userVo.setCoinname(stock.getBtc_stock_name());
+				userVo.setId(user.getUid());
+				userVo.setName(user.getUname());
+				userVo.setUsername(user.getUusername());
+				userListVo.add(userVo);
+			}
+			request.setAttribute("userListVo", userListVo);
 		}
-		request.setAttribute("userListVo", userListVo);
 		return "holdingstock";
 	}
 }

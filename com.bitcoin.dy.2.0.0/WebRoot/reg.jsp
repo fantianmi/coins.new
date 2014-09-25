@@ -11,7 +11,7 @@ if(request.getParameter("id")!=null){
 	recommended_user_id=Integer.parseInt(request.getParameter("id"));
 	session.setAttribute("recommended_user_id", recommended_user_id);
 }else if(session.getAttribute("recommended_user_id")!=null){
-	recommended_user_id=Integer.parseInt(session.getAttribute("recommended_user_id"));
+	recommended_user_id=Integer.parseInt(session.getAttribute("recommended_user_id").toString());
 }
 %>   
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">

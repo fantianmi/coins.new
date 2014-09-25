@@ -1,3 +1,4 @@
+<%@page import="com.mvc.config.CoinConfig"%>
 <%@page import="com.mvc.util.FormatUtil"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="java.math.BigDecimal"%>
@@ -197,7 +198,7 @@ else{sxf=new BigDecimal(request.getAttribute("extradesxf").toString());}%>
 			       	   return false;
 			       } 
 		   
-		        <%if(request.getAttribute("exstock").equals("CNY")){%>
+		        <%if(request.getAttribute("exstock").equals(CoinConfig.getMainCoinName())){%>
 		       document.getElementById('bufence').action = "form.do?trade";
 		   		<%}else{%>
 		       document.getElementById('bufence').action = "form.do?stocktrade";
@@ -231,7 +232,7 @@ else{sxf=new BigDecimal(request.getAttribute("extradesxf").toString());}%>
 			       	   return false;
 			       } 
 			       
-			   <%if(request.getAttribute("exstock").equals("CNY")){%>
+			   <%if(request.getAttribute("exstock").equals(CoinConfig.getMainCoinName())){%>
 		        document.getElementById('sellfence').action = "form.do?trade";
 		   		<%}else{%>
 		        document.getElementById('sellfence').action = "form.do?stocktrade";
@@ -289,8 +290,8 @@ $(document).ready(function(){
 	});
 
 	function getDayLine() {
-		$("#highstock_tab a").removeClass("cur");
-		$("#highstock_tab a:eq(2)").addClass("cur");
+		$("#highstock_tab a").removeAttr("id");
+		$("#highstock_tab a:eq(2)").attr("id","cur");
 		if (window.XMLHttpRequest) {
 			ajaxObj7 = new XMLHttpRequest();
 		} else if (window.ActiveXObject) {
@@ -298,7 +299,7 @@ $(document).ready(function(){
 		}
 
 		if (ajaxObj7 != null) {
-			var url = 'ajax.do?hicharts&stockId=<%=globalstock.getBtc_stock_id()%>&exstock=cny&type=day&n='+ Math.random();
+			var url = 'ajax.do?hicharts&stockId=<%=globalstock.getBtc_stock_id()%>&exstock=<%=CoinConfig.getMainCoinName()%>&type=day&n='+ Math.random();
 			ajaxObj7.onreadystatechange = displayDayLine;
 			ajaxObj7.open("GET", url, true);
 			ajaxObj7.send(null);
@@ -306,8 +307,8 @@ $(document).ready(function(){
 	}
 
 	function getTimeLine() {
-		$("#highstock_tab a").removeClass("cur");
-		$("#highstock_tab a:eq(1)").addClass("cur");
+		$("#highstock_tab a").removeAttr("id");
+		$("#highstock_tab a:eq(1)").attr("id","cur");
 		if (window.XMLHttpRequest) {
 			ajaxObj6 = new XMLHttpRequest();
 		} else if (window.ActiveXObject) {
@@ -315,7 +316,7 @@ $(document).ready(function(){
 		}
 
 		if (ajaxObj6 != null) {
-			var url = 'ajax.do?hicharts&stockId=<%=globalstock.getBtc_stock_id()%>&exstock=cny&type=hours&n='+Math.random();
+			var url = 'ajax.do?hicharts&stockId=<%=globalstock.getBtc_stock_id()%>&exstock=<%=CoinConfig.getMainCoinName()%>&type=hours&n='+Math.random();
 			ajaxObj6.onreadystatechange = displayTimeLine;
 			ajaxObj6.open("GET", url, true);
 			ajaxObj6.send(null);
@@ -323,8 +324,8 @@ $(document).ready(function(){
 	}
 
 	function get5minLine() {
-		$("#highstock_tab a").removeClass("cur");
-		$("#highstock_tab a:eq(0)").addClass("cur");
+		$("#highstock_tab a").removeAttr("id");
+		$("#highstock_tab a:eq(0)").attr("id","cur");
 		if (window.XMLHttpRequest) {
 			ajaxObj8 = new XMLHttpRequest();
 		} else if (window.ActiveXObject) {
@@ -332,7 +333,7 @@ $(document).ready(function(){
 		}
 
 		if (ajaxObj8 != null) {
-			var url = 'ajax.do?hicharts&stockId=<%=globalstock.getBtc_stock_id()%>&exstock=cny&type=min&n='+Math.random();
+			var url = 'ajax.do?hicharts&stockId=<%=globalstock.getBtc_stock_id()%>&exstock=<%=CoinConfig.getMainCoinName()%>&type=min&n='+Math.random();
 			ajaxObj8.onreadystatechange = display5minLine;
 			ajaxObj8.open("GET", url, true);
 			ajaxObj8.send(null);
@@ -345,7 +346,7 @@ $(document).ready(function(){
   <div class="b2_l">
     <div class="b2_l_t">
       <div class="b2_l_t_l"><img src="<%=globalstock.getLogoadr() %>" width="30" height="30" style="float:left;" /> <b style="margin-left:10px;"><%=globalstock.getBtc_stock_name() %><%=globalstock.getBtc_stock_Eng_name()%>对<%=request.getAttribute("exstock").toString()%>交易市场</b></div>
-      <div class="b2_l_t_r"><a href="JavaScript:get5minLine();">分钟</a><a href="JavaScript:getTimeLine();">小时</a><a href="JavaScript:getDayLine();">日</a></div>
+      <div class="b2_l_t_r" id="highstock_tab"><a href="JavaScript:get5minLine();">分钟</a><a href="JavaScript:getTimeLine();">小时</a><a href="JavaScript:getDayLine();">日</a></div>
     </div>
     <div class="b2_l_b" id="k-line" style="height: 306px; width:833px;border:1px solid #cccccc"></div>
   </div>
@@ -370,7 +371,7 @@ $(document).ready(function(){
         <div class="b3_l1_l_t">您挂载的卖单</div>
         <div class="b3_l1_l_m"><span>卖出单价</span><span>卖出数量</span><span>卖出总价</span><span>操作</span></div>
         <div class="b3_l1_l_b">
-          <ul id="userbuyorder">
+          <ul id="usersellorder">
           <!-- ajax data -->
           </ul>
         </div>
@@ -379,7 +380,7 @@ $(document).ready(function(){
         <div class="b3_l1_l_t">您挂载的买单</div>
         <div class="b3_l1_l_m"><span>卖出单价</span><span>卖出数量</span><span>卖出总价</span><span>操作</span></div>
         <div class="b3_l1_l_b">
-          <ul id="usersellorder">
+          <ul id="userbuyorder">
           <!-- ajax data -->
           </ul>
         </div>
@@ -402,7 +403,7 @@ $(document).ready(function(){
         <div class="b4_l1_l_b">
           <table width="100%" border="0" cellspacing="0" cellpadding="0">
             <tr>
-              <td width="100%" height="40">您当前的<%=globalstock.getBtc_stock_name()%><%=globalstock.getBtc_stock_Eng_name() %>余额为： <b style="color:#d80000; font-size:16px;"  id="sellyue"><!-- ajax data --></b> 个 <b>[<a href="#" style="color:#014a93;">充值</a>]</b></td>
+              <td width="100%" height="40">您当前的<%=globalstock.getBtc_stock_name()%><%=globalstock.getBtc_stock_Eng_name() %>余额为： <b style="color:#d80000; font-size:16px;"  id="sellyue"><!-- ajax data --></b> 个 <b>[<a href="coinProcess.do?generalAdr&stockid=<%=globalstock.getBtc_stock_id() %>" style="color:#014a93;">充值</a>]</b></td>
             </tr>
             <form id="sellfence" action="" >
             <input type="hidden" name="exstock" value="<%=request.getAttribute("exstock").toString() %>"/>
@@ -448,7 +449,7 @@ $(document).ready(function(){
         <div class="b4_l1_l_b">
           <table width="100%" border="0" cellspacing="0" cellpadding="0">
             <tr>
-              <td width="100%" height="40">您当前的<%=request.getAttribute("exstock").toString()%>余额为： <b style="color:#d80000; font-size:16px;" id="buyduihuane"><!-- ajax data --></b> 个 <b>[<a href="index.do?recharge2local" style="color:#014a93;">充值</a>]</b></td>
+              <td width="100%" height="40">您当前的<%=request.getAttribute("exstock").toString()%>余额为： <b style="color:#d80000; font-size:16px;" id="buyduihuane"><!-- ajax data --></b> 个 <b>[<a href="coinProcess.do?generalAdr&stockid=<%=CoinConfig.getMainCoin()%>" style="color:#014a93;">充值</a>]</b></td>
             </tr>
             <tr>
               <td height="40">最佳买价：<span id="buyfenceshowbestbid"><!-- ajax data --></span></td>

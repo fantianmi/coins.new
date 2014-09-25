@@ -20,6 +20,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.mvc.config.CoinConfig;
 import com.mvc.entity.Btc_account_book;
 import com.mvc.entity.Btc_award;
 import com.mvc.entity.Btc_content;
@@ -290,7 +291,7 @@ public class IndexController {
 
 	// ##########################################################################################################
 	@RequestMapping(params = "usercenter")
-	public String usercenter(HttpServletRequest request) throws ParseException {
+	public String usercenter(HttpServletRequest request,HttpServletResponse response) throws ParseException, IOException {
 		HttpSession session = request.getSession();
 		if (session.getAttribute("globaluser") == null) {
 			request.setAttribute("msg", "登陆后才能进行此操作！");
@@ -337,9 +338,8 @@ public class IndexController {
 		session.setAttribute("stock_map_navigation", stock_map_navigation);
 		session.setAttribute("user_amount", user_amount);
 		if (user.getUname() == null) {
-			request.setAttribute("msg", "首先进行实名认证");
-			request.setAttribute("href", "index.do?register2");
-			return "redirect";
+			response.sendRedirect("index.do?register2");
+			return null;
 		}
 		if (user.getUname() == null && user.getUcertification() == null) {
 			return "register2";
@@ -376,7 +376,7 @@ public class IndexController {
 		session.setAttribute("user_amount", user_amount);
 		Map<String, Object> stockmapbyname = stockService.getBtc_stockMapbyName();
 		session.setAttribute("stockmapbyname", stockmapbyname);
-		request.setAttribute("exstock", "CNY");
+		request.setAttribute("exstock", CoinConfig.getMainCoinName());
 		Btc_profit profit = profitService.getConfig();
 		request.setAttribute("profit", profit);
 		Btc_stock btc_stock = (Btc_stock) stock_map.get(Integer.parseInt(stockId));
@@ -404,13 +404,13 @@ public class IndexController {
 			} else {
 				request.setAttribute("isRegister2", "true");
 			}
-			if (orderService.getBuyingOrdersByUid(btc_stock_id, user.getUid(),"CNY") != null) {
+			if (orderService.getBuyingOrdersByUid(btc_stock_id, user.getUid(),CoinConfig.getMainCoinName()) != null) {
 				request.setAttribute("userbidorder",
-						orderService.getBuyingOrdersByUid(btc_stock_id, user.getUid(),"CNY"));
+						orderService.getBuyingOrdersByUid(btc_stock_id, user.getUid(),CoinConfig.getMainCoinName()));
 			}
-			if (orderService.getSellingOrdersByUid(btc_stock_id, user.getUid(),"CNY") != null) {
+			if (orderService.getSellingOrdersByUid(btc_stock_id, user.getUid(),CoinConfig.getMainCoinName()) != null) {
 				request.setAttribute("usersellorder",
-						orderService.getSellingOrdersByUid(btc_stock_id, user.getUid(),"CNY"));
+						orderService.getSellingOrdersByUid(btc_stock_id, user.getUid(),CoinConfig.getMainCoinName()));
 			}
 
 			request.setAttribute("uusername", user.getUusername());
@@ -436,16 +436,16 @@ public class IndexController {
 				session.setAttribute("btc_holding_map", null);
 			}
 		}
-		if (orderService.getBuyingOrders(btc_stock_id,"CNY") != null) {
+		if (orderService.getBuyingOrders(btc_stock_id,CoinConfig.getMainCoinName()) != null) {
 			List<Object> btc_rechargeBTC_order_list = orderService
-					.getBuyingOrders(btc_stock_id,"CNY");
+					.getBuyingOrders(btc_stock_id,CoinConfig.getMainCoinName());
 			request.setAttribute("buyingOders", btc_rechargeBTC_order_list);
 		} else {
 			request.setAttribute("buyingOders", null);
 		}
-		if (orderService.getSellingOrders(btc_stock_id,"CNY") != null) {
+		if (orderService.getSellingOrders(btc_stock_id,CoinConfig.getMainCoinName()) != null) {
 			List<Object> btc_sellBTC_order_list = orderService
-					.getSellingOrders(btc_stock_id,"CNY");
+					.getSellingOrders(btc_stock_id,CoinConfig.getMainCoinName());
 			request.setAttribute("sellOders", btc_sellBTC_order_list);
 		} else {
 			request.setAttribute("sellOders", null);
@@ -623,7 +623,15 @@ public class IndexController {
 				return "register2";
 			} else {
 				int uid = user.getUid();
-				Btc_holding btc_holding = holdingService.getBtc_holding(uid, stockid);
+				BigDecimal coinLeft=new BigDecimal(0);
+				int mainCoinId=Integer.parseInt(CoinConfig.getMainCoin());
+				if(stockid!=mainCoinId){
+					Btc_holding btc_holding = holdingService.getBtc_holding(uid, stockid);
+					coinLeft=btc_holding.getBtc_stock_amount();
+				}else{
+					Btc_account_book account=as.getByUidForAcount(uid);
+					coinLeft=account.getAb_cny();
+				}
 				Btc_stock stock = stockService.getBtc_stockById(stockid);
 				Btc_profit profit = profitService.getConfig();
 
@@ -639,7 +647,7 @@ public class IndexController {
 				request.setAttribute("todaywithdraw",
 						sos.getCountBtc_inout_orderByUid(uid, stockid));
 				request.setAttribute("stock", stock);
-				request.setAttribute("holding", btc_holding);
+				request.setAttribute("coinLeft", coinLeft);
 				request.setAttribute("profit", profit);
 				request.setAttribute("orderilst",
 						sos.getBtc_inout_orderByUid(uid, stockid));

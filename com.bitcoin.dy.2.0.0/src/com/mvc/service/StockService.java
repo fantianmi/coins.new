@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.mvc.config.CoinConfig;
 import com.mvc.dao.EntityDao;
 import com.mvc.entity.Btc_stock;
 import com.mvc.vo.NaviStockModel;
@@ -58,7 +59,7 @@ public class StockService {
 	}
 	
 	public Map<Integer, Object> getBtc_stockMapbyId(){
-		List<Object> list = entityDao.createQuery("select btc_stock from Btc_stock btc_stock group by btc_stock.btc_stock_name");
+		List<Object> list = entityDao.createQuery("select btc_stock from Btc_stock btc_stock where btc_stock.btc_stock_id!=1001 group by btc_stock.btc_stock_name");
 		Map<Integer, Object> stock_map = new HashMap<Integer, Object>();
 		if (list.size() != 0) {
 			for(int i=0;i<list.size();i++){
@@ -68,11 +69,11 @@ public class StockService {
 			return stock_map;
 		}else{
 			return null;
-		}	
+		}
 	}
 	
 	public Map<Integer, Object> getBtc_stockByState(int status){
-		List<Object> list = entityDao.createQuery("select btc_stock from Btc_stock btc_stock where btc_stock.caninout='"+status+"'");
+		List<Object> list = entityDao.createQuery("select btc_stock from Btc_stock btc_stock where btc_stock.caninout='"+status+"' and btc_stock.btc_stock_id!="+Integer.parseInt(CoinConfig.getMainCoin())+"");
 		Map<Integer, Object> stock_map = new HashMap<Integer, Object>();
 		if (list.size() != 0) {
 			for(int i=0;i<list.size();i++){
@@ -135,7 +136,7 @@ public class StockService {
 				nsm.setEngName(stock.getBtc_stock_Eng_name());
 				nsm.setExstock(stock.getBtc_stock_exchange_name());
 				nsm.setId(stock.getBtc_stock_id());
-				nsm.setLastprice(deals.getLtPrice(stock.getBtc_stock_id(), "CNY"));
+				nsm.setLastprice(deals.getLtPrice(stock.getBtc_stock_id(), CoinConfig.getMainCoinName()));
 				nsm.setNewsprice(stock.getBtc_stock_price());
 				nsm.setName(stock.getBtc_stock_name());
 				nsm.setZdf(nsm.getNewsprice(),nsm.getLastprice());

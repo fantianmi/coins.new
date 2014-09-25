@@ -1,6 +1,8 @@
+<%@page import="com.mvc.util.FormatUtil"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/include/head.jsp"%>
+<%FormatUtil format=new FormatUtil(); %>
 <jsp:include page="/include/htmlsrc.jsp"></jsp:include>
 <body>
 <!-- ****************后台管理系统******************** -->
@@ -107,9 +109,9 @@
                                     <span style="float:right; margin-right:10px">角色</span>
                                     </th>
                                     <th width="25%">
-                                    <span style="float:left">[活动资金]</span>
+                                    <span style="float:left">[莱特币余额]</span>
                                     &nbsp;&nbsp;
-                                    <span style="float:right; margin-right:10px">[手机号]</span>                                   
+                                    <span style="float:right; margin-right:10px">[邮箱]</span>                                   
                                     </th>
                                     <th width="25%">
                                     <span style="float:left">注册时间</span>
@@ -144,12 +146,12 @@
 	                                    <td>
 	                                    <%if(accountMap.get(user.getUid())!=null){
 	                                    	%>
-	                                    <span style="float:left">[￥<%=accountMap.get(user.getUid()).getAb_cny()%>]</span>
+	                                    <span style="float:left">[￥<%=format.trans(accountMap.get(user.getUid()).getAb_cny())%>]</span>
 	                                    <% }else{%>
 	                                    <span style="float:left">[￥0.00]</span>
 	                                    <%} %>
 	                                    &nbsp;&nbsp;
-	                                    <span style="float:right"><%=user.getUphone()%></span>     
+	                                    <span style="float:right"><%=user.getUemail()%></span>     
 	                                    </td>
 	                                    <td>
 	                                    <span style="float:left"><%=user.getUsdtime() %></span>
@@ -369,9 +371,9 @@
                                     <span style="float:right; margin-right:10px">角色</span>
                                     </th>
                                     <th width="25%">
-                                    <span style="float:left">[活动资金]</span>
+                                    <span style="float:left">[莱特币余额]</span>
                                     &nbsp;&nbsp;
-                                    <span style="float:right; margin-right:10px">[手机号]</span>                                   
+                                    <span style="float:right; margin-right:10px">[邮箱]</span>                                   
                                     </th>
                                     <th width="25%">
                                     <span style="float:left">注册时间</span>
@@ -406,12 +408,12 @@
 	                                    <td>
 	                                    <%if(accountMap.get(user.getUid())!=null){
 	                                    	%>
-	                                    <span style="float:left">[￥<%=accountMap.get(user.getUid()).getAb_cny()%>]</span>
+	                                    <span style="float:left">[￥<%=format.trans(accountMap.get(user.getUid()).getAb_cny())%>]</span>
 	                                    <% }else{%>
 	                                    <span style="float:left">[￥0.00]</span>
 	                                    <%} %>
 	                                    &nbsp;&nbsp;
-	                                    <span style="float:right"><%=user.getUphone()%></span>     
+	                                    <span style="float:right"><%=user.getUemail()%></span>     
 	                                    </td>
 	                                    <td>
 	                                    <span style="float:left"><%=user.getUsdtime() %></span>

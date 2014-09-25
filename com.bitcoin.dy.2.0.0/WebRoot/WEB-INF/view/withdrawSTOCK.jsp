@@ -1,3 +1,4 @@
+<%@page import="com.mvc.util.FormatUtil"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="java.math.BigDecimal"%>
 <%@ page import="com.mvc.entity.*" %>
@@ -8,10 +9,10 @@
 <%Map<String,Btc_content> indexmap = (Map<String,Btc_content>)session.getAttribute("indexmap"); 
  Btc_stock stock = (Btc_stock)request.getAttribute("stock");
  Btc_profit profit =(Btc_profit)request.getAttribute("profit");
+ FormatUtil format=new FormatUtil();
  BigDecimal holding = new BigDecimal(0);
- if(request.getAttribute("holding")!=null){
-	 Btc_holding hold = (Btc_holding)request.getAttribute("holding");
-	 holding = hold.getBtc_stock_amount();
+ if(request.getAttribute("coinLeft")!=null){
+	 holding = new BigDecimal(request.getAttribute("coinLeft").toString());
  }
  %>
  <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -35,10 +36,10 @@
     </div>
     <div class="user1">
     	<table>
-    	<form action="stockorders.do?withdrawStock" method="post">
+    	<form action="coinProcess.do?withdrawStock" method="post">
        <input type="hidden" name="stockId" value="<%=stock.getBtc_stock_id() %>"/>
     	<tr>
-    	<td>可用余额</td><td><%=holding %> <%=stock.getBtc_stock_Eng_name() %></td><td></td>
+    	<td>可用余额</td><td><%=format.trans(holding) %> <%=stock.getBtc_stock_Eng_name() %></td><td></td>
     	</tr>
     	<tr>
     	<td>当日提现上限</td><td><%=request.getAttribute("todaywithdraw").toString() %>/ <%=stock.getWithdrawzdz()%><%=stock.getBtc_stock_Eng_name() %></td><td></td>
@@ -86,7 +87,7 @@
         <tr>
             <td height="30" align="center" valign="middle" bgcolor="#FFFFFF"><%=order.getBtc_inout_order_id() %></td>
             <td height="30" align="center" valign="middle" bgcolor="#FFFFFF" ><%=order.getBtc_inout_adr() %></td>
-            <td height="30" align="center" valign="middle" bgcolor="#FFFFFF"><%=order.getBtc_inout_amount() %></td>
+            <td height="30" align="center" valign="middle" bgcolor="#FFFFFF"><%=format.trans(order.getBtc_inout_amount()) %></td>
             <td height="30" align="center" valign="middle" bgcolor="#FFFFFF"><%=order.getBtc_inout_time() %></td>
             <td height="30" align="center" valign="middle" bgcolor="#FFFFFF" ><%=order.getBtc_inout_msg() %></td>
             <%if(order.getBtc_inout_status().equals("未处理")){ %>

@@ -21,7 +21,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <a href="index.do?tuijie" id="tuijie">推广得股份币</a> 
   <a href="index.do?fenhong" id="fenhong">股份币分红领取</a> 
   <a href="coinProcess.do?generalAdr&stockid=1001">莱特币充值</a> 
-  <a href="index.do?withdrawCNY">莱特币提现</a> 
+  <a href="index.do?withdrawStock&stockid=1001">莱特币提现</a> 
   </div>
   <div class="u_l_t">持有币种</div>
   <%

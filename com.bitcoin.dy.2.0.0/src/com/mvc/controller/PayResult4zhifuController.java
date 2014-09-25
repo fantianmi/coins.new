@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.mvc.config.CoinConfig;
 import com.mvc.entity.Btc_inAll;
 import com.mvc.entity.Btc_incomeCNY;
 import com.mvc.entity.Btc_profit;
@@ -134,7 +135,7 @@ public class PayResult4zhifuController {
 			btc_incomeCNY.setBtc_incomeCNY_time(bro.getBro_recharge_time());
 			financeService.saveIncomeCNY(btc_incomeCNY);
 			
-			btc_inAll = financeService.getInAll_ByName("CNY");
+			btc_inAll = financeService.getInAll_ByName(CoinConfig.getMainCoinName());
 			btc_inAll.setBtc_inAll_amount(btc_inAll.getBtc_inAll_amount().add(bro.getBro_recharge_acount()));
 			financeService.updateInAll(btc_inAll);
 			return "paysuccess";
