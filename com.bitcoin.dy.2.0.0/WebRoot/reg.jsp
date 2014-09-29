@@ -44,10 +44,10 @@ if(request.getParameter("id")!=null){
         <link type="text/css" rel="stylesheet" href="login/css/plugins.css">
         <link type="text/css" rel="stylesheet" href="login/css/login.css">
         <link type="text/css" rel="stylesheet" href="login/css/custom.css">
-        <link href="login/css/print.css" rel="stylesheet" type="text/css"
-        media="print" title="printonly">
+        <link href="login/css/print.css" rel="stylesheet" type="text/css" media="print" title="printonly">
         <link type="text/css" rel="stylesheet" href="login/css/style2.css">
         <script type="text/javascript" src="script/coin/coincommon.js"></script>
+        <link href="iconfonts/iconfont.css" rel="stylesheet" type="text/css" />
         <script type="text/javascript" charset="UTF-8" src="login/js/logb02.js"></script>
         <script type="text/javascript" src="chrome-extension://bfbmjmiodbnnpllbbbfblcplfjjepjdn/js/injected.js"></script>
         <style>
@@ -72,7 +72,7 @@ if(request.getParameter("id")!=null){
             <div class="logo" style="margin: 60px auto 0;
             padding: 15px;
             text-align: center; ">
-                <a href="https://vip.btcchina.com/">
+                <a href="index.do">
                     <img alt="" src="login/img/logo-180x50.png">
                 </a>
             </div>
@@ -108,22 +108,22 @@ if(request.getParameter("id")!=null){
 										<fieldset class="fields1">
 											<div class="form-group">
 												<label for="username">邮箱</label>
-												<div style=" border-left: 2px solid #1E90FF !important;" class="input-icon">
-													<i class="icon-user"></i>
+												<div style=" border-left: 2px solid #2A3342 !important;" class="input-icon">
+													<i class="iconfont">&#xe60c;</i>
 													<input type="text" tabindex="1" placeholder="请输入您的邮箱" name="regUserName" id="regUserName" size="25" value="" class="form-control placeholder-no-fix">
 												</div>
 											</div>
 											<div class="form-group">
 												<label for="password">登陆密码</label>
-												<div style=" border-left: 2px solid #1E90FF !important;" class="input-icon">
-													<i class="icon-lock"></i>
+												<div style=" border-left: 2px solid #2A3342 !important;" class="input-icon">
+													<i class="iconfont">&#xe60d;</i>
 													<input type="password" tabindex="2" placeholder="密码" id="upassword" name="upassword" size="25" class="form-control placeholder-no-fix">
 												</div>
 											</div>
 											<div class="form-group">
 												<label for="password">重复密码</label>
-												<div style=" border-left: 2px solid #1E90FF !important;" class="input-icon">
-													<i class="icon-lock"></i>
+												<div style=" border-left: 2px solid #2A3342 !important;" class="input-icon">
+													<i class="iconfont">&#xe60d;</i>
 													<input type="password" tabindex="2" placeholder="密码" id="passWordAgain" name="passWordAgain" size="25" class="form-control placeholder-no-fix">
 												</div>
 											</div>
@@ -154,7 +154,7 @@ if(request.getParameter("id")!=null){
 
 	</div>
 
-	<div class="copyright"> Copyright © 2014 成都中恒比特网络科技有限公司。保留所有权利。</div>
+	<div class="copyright">CopyRight 2010-2013 成都中恒比特网络科技有限公司 版权所有 蜀ICP备14007293号-1</div>
             <div>
                 <a id="bottom" name="bottom" accesskey="z">
                 </a>

@@ -35,15 +35,14 @@
         <input type="hidden" value="<%=res.getString("host.country")%>身份证" name="ucertificationcategory"/>
         <tr>
           <td width="37%" height="35" align="right" style="color:#333; font-weight:bold;">真实姓名：</td>
-          <td width="63%" style="padding-left:10px;"><input  name="realName" id="realName" 
-	  		onkeyup="value=value.replace(/[^/u4E00-/u9FA5]/g,'')" 
+          <td width="63%" style="padding-left:10px;"><input  name="realName" id="realName" onkeyup="value=value.replace('/[^/u4E00-/u9FA5]/g','')" 
 onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/[^/u4E00-/u9FA5]/g,''))" 
 	  		placeholder="请填写您的真实姓名，我们会人工进行审核"  type="text" style="width:200px; height:25px; line-height:25px; color:#666; border:1px solid #ddd;" /></td>
         </tr>
         <tr>
           <td width="37%" height="35" align="right" style="color:#333; font-weight:bold;">再次输入真实姓名：</td>
           <td width="63%" style="padding-left:10px;"><input  name="realName2" id="realName2" 
-	  		onkeyup="value=value.replace(/[^/u4E00-/u9FA5]/g,'')" 
+	  		onkeyup="value=value.replace('/[^/u4E00-/u9FA5]/g','')" 
 onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/[^/u4E00-/u9FA5]/g,''))" 
 	  		placeholder="请再次输入您的真实姓名"  type="text" style="width:200px; height:25px; line-height:25px; color:#666; border:1px solid #ddd;" /></td>
         </tr>

@@ -20,7 +20,7 @@
         <meta name="distribution" content="global">
         <meta name="keywords" content="">
         <meta name="description" content="">
-        <title>Login</title>
+        <title>登陆</title>
         <meta content="IE=edge" http-equiv="X-UA-Compatible">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="description" content="">
@@ -40,6 +40,7 @@
         media="print" title="printonly">
         <link type="text/css" rel="stylesheet" href="login/css/style2.css">
         <script type="text/javascript" src="script/coin/coincommon.js"></script>
+        <link href="iconfonts/iconfont.css" rel="stylesheet" type="text/css" />
         <script type="text/javascript" charset="UTF-8" src="login/js/logb02.js"></script>
         <script type="text/javascript" src="chrome-extension://bfbmjmiodbnnpllbbbfblcplfjjepjdn/js/injected.js"></script>
         <style>
@@ -98,15 +99,15 @@
 										<fieldset class="fields1">
 											<div class="form-group">
 												<label for="username">用户名</label>
-												<div style=" border-left: 2px solid #1E90FF !important;" class="input-icon">
-													<i class="icon-user"></i>
+												<div style=" border-left: 2px solid #2A3342 !important;" class="input-icon">
+													<i class="iconfont">&#xe60c;</i>
 													<input type="text" tabindex="1" placeholder="用户名" name="uusername" id="uusername" size="25" value="" class="form-control placeholder-no-fix">
 												</div>
 											</div>
 											<div class="form-group">
 												<label for="password">密码</label>
-												<div style=" border-left: 2px solid #1E90FF !important;" class="input-icon">
-													<i class="icon-lock"></i>
+												<div style=" border-left: 2px solid #2A3342 !important;" class="input-icon">
+													<i class="iconfont">&#xe60d;</i>
 													<input type="password" tabindex="2" placeholder="密码" id="upassword" name="upassword" size="25" class="form-control placeholder-no-fix">
 												</div>
 											</div>
@@ -137,7 +138,7 @@
 
 	</div>
 
-	<div class="copyright"> Copyright © 2014 上海萨图西网络有限公司。保留所有权利。</div>
+	<div class="copyright">CopyRight 2010-2013 成都中恒比特网络科技有限公司 版权所有 蜀ICP备14007293号-1</div>
             <div>
                 <a id="bottom" name="bottom" accesskey="z">
                 </a>
