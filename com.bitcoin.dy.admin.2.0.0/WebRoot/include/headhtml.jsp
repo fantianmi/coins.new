@@ -15,7 +15,7 @@ String href = null;
 </script>
 <%} %>
 <div class="header">
-    <a class="logo" href="index.dol"><img src="img/logo.png" alt="Aquarius -  responsive admin panel" title="Aquarius -  responsive admin panel"/></a>
+    <a class="logo" href="index.do"><img src="img/logo.png" alt="Aquarius -  responsive admin panel" title="Aquarius -  responsive admin panel"/></a>
     <ul class="header_menu">
         <li class="list_icon"><a href="#">&nbsp;</a></li>
     </ul>    

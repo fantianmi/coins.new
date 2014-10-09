@@ -627,10 +627,18 @@ public class IndexController {
 				int mainCoinId=Integer.parseInt(CoinConfig.getMainCoin());
 				if(stockid!=mainCoinId){
 					Btc_holding btc_holding = holdingService.getBtc_holding(uid, stockid);
-					coinLeft=btc_holding.getBtc_stock_amount();
+					if(holdingService.getBtc_holding(uid, stockid)!=null){
+						coinLeft=btc_holding.getBtc_stock_amount();
+					}else{
+						coinLeft=new BigDecimal(0);
+					}
 				}else{
 					Btc_account_book account=as.getByUidForAcount(uid);
-					coinLeft=account.getAb_cny();
+					if(as.getByUidForAcount(uid)!=null){
+						coinLeft=account.getAb_cny();
+					}else{
+						coinLeft=new BigDecimal(0);
+					}
 				}
 				Btc_stock stock = stockService.getBtc_stockById(stockid);
 				Btc_profit profit = profitService.getConfig();
