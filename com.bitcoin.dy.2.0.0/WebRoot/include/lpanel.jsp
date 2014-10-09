@@ -45,7 +45,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	  		stock_amount.setScale(4,BigDecimal.ROUND_HALF_UP);
 	  		otherCount = otherCount.add(stock_price.multiply(stock_amount));
 	  		%>
-	  		<div class="u_l_b1"><a href="index.htm?stock&stockId=<%=btc_stock.getBtc_stock_id() %>" ><%=stockName %>(<%=stockEngName %></a></div>
+	  		<div class="u_l_b1"><a href="index.do?stock&stockId=<%=btc_stock.getBtc_stock_id() %>" ><%=stockName %>(<%=stockEngName %></a></div>
 	  	<%
 	  	}
 	  } 

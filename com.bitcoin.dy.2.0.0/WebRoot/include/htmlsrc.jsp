@@ -14,6 +14,7 @@
 <script type="text/javascript" src="script/coin/user/index.js"></script>
 <!--coins source -->
 <link href="coins_new/css/common.css" rel="stylesheet" type="text/css" />
+<link href="iconfonts/iconfont.css" rel="stylesheet" type="text/css" />
 <!-- source -->
 <script type="text/javascript" src="script/jquery.min.js"></script>
 <script type="text/javascript" src="form/ajaxsubmit.js"></script>

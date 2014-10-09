@@ -4,8 +4,16 @@
 <%@ page import="com.mvc.vo.*"%>
 <%@ page import="java.math.BigDecimal"%>
 <%@ page import="java.util.*"%>
-<%ResourceBundle res = ResourceBundle.getBundle("host"); %>  
-<%List<Btc_content> newslist = (List<Btc_content>)session.getAttribute("newslist");%>   
+<%
+ResourceBundle res = ResourceBundle.getBundle("host"); 
+int recommended_user_id=1;
+if(request.getParameter("id")!=null){
+	recommended_user_id=Integer.parseInt(request.getParameter("id"));
+	session.setAttribute("recommended_user_id", recommended_user_id);
+}else if(session.getAttribute("recommended_user_id")!=null){
+	recommended_user_id=Integer.parseInt(session.getAttribute("recommended_user_id").toString());
+}
+%>   
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <!-- saved from url=(0070)https://vip.btcchina.com/index/login?redirect=%2Ftrade#/buysell/cnybtc
 -->
@@ -20,7 +28,7 @@
         <meta name="distribution" content="global">
         <meta name="keywords" content="">
         <meta name="description" content="">
-        <title>登陆</title>
+        <title>欢迎注册</title>
         <meta content="IE=edge" http-equiv="X-UA-Compatible">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="description" content="">
@@ -36,8 +44,7 @@
         <link type="text/css" rel="stylesheet" href="login/css/plugins.css">
         <link type="text/css" rel="stylesheet" href="login/css/login.css">
         <link type="text/css" rel="stylesheet" href="login/css/custom.css">
-        <link href="login/css/print.css" rel="stylesheet" type="text/css"
-        media="print" title="printonly">
+        <link href="login/css/print.css" rel="stylesheet" type="text/css" media="print" title="printonly">
         <link type="text/css" rel="stylesheet" href="login/css/style2.css">
         <script type="text/javascript" src="script/coin/coincommon.js"></script>
         <link href="iconfonts/iconfont.css" rel="stylesheet" type="text/css" />
@@ -65,7 +72,7 @@
             <div class="logo" style="margin: 60px auto 0;
             padding: 15px;
             text-align: center; ">
-                <a href="index.do">
+                <a href="https://vip.btcchina.com/">
                     <img alt="" src="login/img/logo-180x50.png">
                 </a>
             </div>
@@ -95,20 +102,29 @@
                 padding: 20px 30px 15px;
                 width: 460px;">
                     <form action="vertify.do" class="login-form" method="post" id="loginForm" autocomplete="off">
-										<h2>登录</h2>
+                    <input type="hidden" name="regType" value="1" id="regType"/>
+                    <input type="hidden" name="recommended_user_id" value="<%=recommended_user_id %>" id="recommended_user_id"/>
+										<h2>注册</h2>
 										<fieldset class="fields1">
 											<div class="form-group">
-												<label for="username">用户名</label>
+												<label for="username">邮箱</label>
 												<div style=" border-left: 2px solid #2A3342 !important;" class="input-icon">
 													<i class="iconfont">&#xe60c;</i>
-													<input type="text" tabindex="1" placeholder="用户名" name="uusername" id="uusername" size="25" value="" class="form-control placeholder-no-fix">
+													<input type="text" tabindex="1" placeholder="请输入您的邮箱" name="regUserName" id="regUserName" size="25" value="" class="form-control placeholder-no-fix">
 												</div>
 											</div>
 											<div class="form-group">
-												<label for="password">密码</label>
+												<label for="password">登陆密码</label>
 												<div style=" border-left: 2px solid #2A3342 !important;" class="input-icon">
 													<i class="iconfont">&#xe60d;</i>
 													<input type="password" tabindex="2" placeholder="密码" id="upassword" name="upassword" size="25" class="form-control placeholder-no-fix">
+												</div>
+											</div>
+											<div class="form-group">
+												<label for="password">重复密码</label>
+												<div style=" border-left: 2px solid #2A3342 !important;" class="input-icon">
+													<i class="iconfont">&#xe60d;</i>
+													<input type="password" tabindex="2" placeholder="密码" id="passWordAgain" name="passWordAgain" size="25" class="form-control placeholder-no-fix">
 												</div>
 											</div>
 																<div class="form-actions" style="-moz-border-bottom-colors: none; -moz-border-left-colors: none;-moz-border-right-colors: none;-moz-border-top-colors: none;background-color: #fafafa;border-color: -moz-use-text-color -moz-use-text-color #EEEEEE;border-image: none;border-style: none none solid;
@@ -117,11 +133,11 @@
 						    margin-left: -30px;
 						    margin-right: -30px;
 						    padding: 0 30px 25px;">
-												<input type="button" name="login"  onclick="loginSubmit()" tabindex="6"  value="登录" style="" class="btn blue btn-block"><i class="m-icon-swapright m-icon-white"></i>
+												<input type="button" name="login"  onclick="regSubmit()" tabindex="6"  value="注册" style="" class="btn blue btn-block"><i class="m-icon-swapright m-icon-white"></i>
 						
 												<div class="forget-password">
 													<h4></h4>
-													<a href="index.do?findpass&type=upass">忘记了密码</a><br><a href="reg.jsp" class="">注册</a>
+													<a href="index.do?Login" class="">返回登陆</a>
 												</div>
 											</div>
 										</fieldset>

@@ -299,7 +299,7 @@ $(document).ready(function(){
 		}
 
 		if (ajaxObj7 != null) {
-			var url = 'ajax.do?hicharts&stockId=<%=globalstock.getBtc_stock_id()%>&exstock=LTC&type=day&n='+ Math.random();
+			var url = 'ajax.do?hicharts&stockId=<%=globalstock.getBtc_stock_id()%>&exstock=<%="LTC"%>&type=day&n='+ Math.random();
 			ajaxObj7.onreadystatechange = displayDayLine;
 			ajaxObj7.open("GET", url, true);
 			ajaxObj7.send(null);
@@ -316,7 +316,7 @@ $(document).ready(function(){
 		}
 
 		if (ajaxObj6 != null) {
-			var url = 'ajax.do?hicharts&stockId=<%=globalstock.getBtc_stock_id()%>&exstock=LTC&type=hours&n='+Math.random();
+			var url = 'ajax.do?hicharts&stockId=<%=globalstock.getBtc_stock_id()%>&exstock=<%="LTC"%>&type=hours&n='+Math.random();
 			ajaxObj6.onreadystatechange = displayTimeLine;
 			ajaxObj6.open("GET", url, true);
 			ajaxObj6.send(null);
@@ -333,7 +333,7 @@ $(document).ready(function(){
 		}
 
 		if (ajaxObj8 != null) {
-			var url = 'ajax.do?hicharts&stockId=<%=globalstock.getBtc_stock_id()%>&exstock=LTC&type=min&n='+Math.random();
+			var url = 'ajax.do?hicharts&stockId=<%=globalstock.getBtc_stock_id()%>&exstock=<%="LTC"%>&type=min&n='+Math.random();
 			ajaxObj8.onreadystatechange = display5minLine;
 			ajaxObj8.open("GET", url, true);
 			ajaxObj8.send(null);
