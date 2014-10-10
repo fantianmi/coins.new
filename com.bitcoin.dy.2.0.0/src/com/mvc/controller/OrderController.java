@@ -96,7 +96,7 @@ public class OrderController {
 			
 			
 			if(order.getBtc_order_type().equals("bid")){
-				if(exstock.equals(CoinConfig.getMainCoinName())){
+				if(exstock.equals("LTC")){
 					Btc_account_book account = as.getByUidForAcount(order.getUid());
 					account.setAb_cny(account.getAb_cny().add(order.getBtc_order_price().multiply(order.getBtc_order_amount())));
 					as.updateAccount_Book(account);
@@ -158,7 +158,7 @@ public class OrderController {
 				}
 				order.setBtc_order_status(1);
 				orderService.updateOrder(order);
-				if(exstock.equals(CoinConfig.getMainCoinName())){
+				if(exstock.equals("LTC")){
 					Btc_account_book account = as.getByUidForAcount(order.getUid());
 					account.setAb_cny(account.getAb_cny().add(order.getBtc_order_price().multiply(order.getBtc_order_amount())));
 					as.updateAccount_Book(account);
@@ -275,7 +275,7 @@ public class OrderController {
 		orderService.updateOrder(order);
 		
 		if(order.getBtc_order_type().equals("bid")){
-			if(exstock.equals(CoinConfig.getMainCoinName())){
+			if(exstock.equals("LTC")){
 				Btc_account_book account = as.getByUidForAcount(order.getUid());
 				account.setAb_cny(account.getAb_cny().add(order.getBtc_order_price().multiply(order.getBtc_order_amount())));
 				as.updateAccount_Book(account);

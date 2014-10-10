@@ -41,16 +41,16 @@ public class TopAutoloadController {
 			@RequestParam("stockId") int stockId,
 			ModelMap modelMap, HttpServletRequest request,
 			HttpServletResponse response) throws ParseException, IOException {
-		String exstock = CoinConfig.getMainCoinName();
+		String exstock = "LTC";
 		if(request.getParameter("exstock")!=null){
 			exstock = request.getParameter("exstock").toString();
 		}
 		// #######################################
 		Btc_stock btc_stock = stockService.getBtc_stockByIdandExchangeStock(
-				stockId, CoinConfig.getMainCoinName());
+				stockId, "LTC");
 		BigDecimal latestprice = new BigDecimal(0);
 		
-		if(exstock.equals(CoinConfig.getMainCoinName())){
+		if(exstock.equals("LTC")){
 		// 最新成交价
 			latestprice = btc_stock.getBtc_stock_price();
 		}

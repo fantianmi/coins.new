@@ -198,7 +198,7 @@ else{sxf=new BigDecimal(request.getAttribute("extradesxf").toString());}%>
 			       	   return false;
 			       } 
 		   
-		        <%if(request.getAttribute("exstock").equals(CoinConfig.getMainCoinName())){%>
+		        <%if(request.getAttribute("exstock").equals("LTC")){%>
 		       document.getElementById('bufence').action = "form.do?trade";
 		   		<%}else{%>
 		       document.getElementById('bufence').action = "form.do?stocktrade";
@@ -232,7 +232,7 @@ else{sxf=new BigDecimal(request.getAttribute("extradesxf").toString());}%>
 			       	   return false;
 			       } 
 			       
-			   <%if(request.getAttribute("exstock").equals(CoinConfig.getMainCoinName())){%>
+			   <%if(request.getAttribute("exstock").equals("LTC")){%>
 		        document.getElementById('sellfence').action = "form.do?trade";
 		   		<%}else{%>
 		        document.getElementById('sellfence').action = "form.do?stocktrade";
@@ -299,7 +299,7 @@ $(document).ready(function(){
 		}
 
 		if (ajaxObj7 != null) {
-			var url = 'ajax.do?hicharts&stockId=<%=globalstock.getBtc_stock_id()%>&exstock=<%=CoinConfig.getMainCoinName()%>&type=day&n='+ Math.random();
+			var url = 'ajax.do?hicharts&stockId=<%=globalstock.getBtc_stock_id()%>&exstock=LTC&type=day&n='+ Math.random();
 			ajaxObj7.onreadystatechange = displayDayLine;
 			ajaxObj7.open("GET", url, true);
 			ajaxObj7.send(null);
@@ -316,7 +316,7 @@ $(document).ready(function(){
 		}
 
 		if (ajaxObj6 != null) {
-			var url = 'ajax.do?hicharts&stockId=<%=globalstock.getBtc_stock_id()%>&exstock=<%=CoinConfig.getMainCoinName()%>&type=hours&n='+Math.random();
+			var url = 'ajax.do?hicharts&stockId=<%=globalstock.getBtc_stock_id()%>&exstock=LTC&type=hours&n='+Math.random();
 			ajaxObj6.onreadystatechange = displayTimeLine;
 			ajaxObj6.open("GET", url, true);
 			ajaxObj6.send(null);
@@ -333,7 +333,7 @@ $(document).ready(function(){
 		}
 
 		if (ajaxObj8 != null) {
-			var url = 'ajax.do?hicharts&stockId=<%=globalstock.getBtc_stock_id()%>&exstock=<%=CoinConfig.getMainCoinName()%>&type=min&n='+Math.random();
+			var url = 'ajax.do?hicharts&stockId=<%=globalstock.getBtc_stock_id()%>&exstock=LTC&type=min&n='+Math.random();
 			ajaxObj8.onreadystatechange = display5minLine;
 			ajaxObj8.open("GET", url, true);
 			ajaxObj8.send(null);
@@ -449,7 +449,7 @@ $(document).ready(function(){
         <div class="b4_l1_l_b">
           <table width="100%" border="0" cellspacing="0" cellpadding="0">
             <tr>
-              <td width="100%" height="40">您当前的<%=request.getAttribute("exstock").toString()%>余额为： <b style="color:#d80000; font-size:16px;" id="buyduihuane"><!-- ajax data --></b> 个 <b>[<a href="coinProcess.do?generalAdr&stockid=<%=CoinConfig.getMainCoin()%>" style="color:#014a93;">充值</a>]</b></td>
+              <td width="100%" height="40">您当前的<%=request.getAttribute("exstock").toString()%>余额为： <b style="color:#d80000; font-size:16px;" id="buyduihuane"><!-- ajax data --></b> 个 <b>[<a href="coinProcess.do?generalAdr&stockid=1001" style="color:#014a93;">充值</a>]</b></td>
             </tr>
             <tr>
               <td height="40">最佳买价：<span id="buyfenceshowbestbid"><!-- ajax data --></span></td>

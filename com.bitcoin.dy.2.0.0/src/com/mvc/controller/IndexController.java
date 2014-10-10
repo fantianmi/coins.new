@@ -376,7 +376,7 @@ public class IndexController {
 		session.setAttribute("user_amount", user_amount);
 		Map<String, Object> stockmapbyname = stockService.getBtc_stockMapbyName();
 		session.setAttribute("stockmapbyname", stockmapbyname);
-		request.setAttribute("exstock", CoinConfig.getMainCoinName());
+		request.setAttribute("exstock", "LTC");
 		Btc_profit profit = profitService.getConfig();
 		request.setAttribute("profit", profit);
 		Btc_stock btc_stock = (Btc_stock) stock_map.get(Integer.parseInt(stockId));
@@ -404,13 +404,13 @@ public class IndexController {
 			} else {
 				request.setAttribute("isRegister2", "true");
 			}
-			if (orderService.getBuyingOrdersByUid(btc_stock_id, user.getUid(),CoinConfig.getMainCoinName()) != null) {
+			if (orderService.getBuyingOrdersByUid(btc_stock_id, user.getUid(),"LTC") != null) {
 				request.setAttribute("userbidorder",
-						orderService.getBuyingOrdersByUid(btc_stock_id, user.getUid(),CoinConfig.getMainCoinName()));
+						orderService.getBuyingOrdersByUid(btc_stock_id, user.getUid(),"LTC"));
 			}
-			if (orderService.getSellingOrdersByUid(btc_stock_id, user.getUid(),CoinConfig.getMainCoinName()) != null) {
+			if (orderService.getSellingOrdersByUid(btc_stock_id, user.getUid(),"LTC") != null) {
 				request.setAttribute("usersellorder",
-						orderService.getSellingOrdersByUid(btc_stock_id, user.getUid(),CoinConfig.getMainCoinName()));
+						orderService.getSellingOrdersByUid(btc_stock_id, user.getUid(),"LTC"));
 			}
 
 			request.setAttribute("uusername", user.getUusername());
@@ -436,16 +436,16 @@ public class IndexController {
 				session.setAttribute("btc_holding_map", null);
 			}
 		}
-		if (orderService.getBuyingOrders(btc_stock_id,CoinConfig.getMainCoinName()) != null) {
+		if (orderService.getBuyingOrders(btc_stock_id,"LTC") != null) {
 			List<Object> btc_rechargeBTC_order_list = orderService
-					.getBuyingOrders(btc_stock_id,CoinConfig.getMainCoinName());
+					.getBuyingOrders(btc_stock_id,"LTC");
 			request.setAttribute("buyingOders", btc_rechargeBTC_order_list);
 		} else {
 			request.setAttribute("buyingOders", null);
 		}
-		if (orderService.getSellingOrders(btc_stock_id,CoinConfig.getMainCoinName()) != null) {
+		if (orderService.getSellingOrders(btc_stock_id,"LTC") != null) {
 			List<Object> btc_sellBTC_order_list = orderService
-					.getSellingOrders(btc_stock_id,CoinConfig.getMainCoinName());
+					.getSellingOrders(btc_stock_id,"LTC");
 			request.setAttribute("sellOders", btc_sellBTC_order_list);
 		} else {
 			request.setAttribute("sellOders", null);
@@ -624,7 +624,7 @@ public class IndexController {
 			} else {
 				int uid = user.getUid();
 				BigDecimal coinLeft=new BigDecimal(0);
-				int mainCoinId=Integer.parseInt(CoinConfig.getMainCoin());
+				int mainCoinId=Integer.parseInt("1001");
 				if(stockid!=mainCoinId){
 					Btc_holding btc_holding = holdingService.getBtc_holding(uid, stockid);
 					coinLeft=btc_holding.getBtc_stock_amount();

@@ -159,7 +159,7 @@ public class MatchAlgorithmUtil3 {
 				bro.setBtc_order_success_time(time);
 				buyingOrderList.set(buying_list_index-1, bro);
 			}
-			Btc_deal_list bsl_db = new Btc_deal_list(bro.getBtc_order_id(),bso.getBtc_order_id(),dealquantity,dealRate,time,dealquantity.multiply(dealRate),btc_stock_id,type,CoinConfig.getMainCoinName(),bro.getUid(),bso.getUid(),bro.getBtc_order_price());
+			Btc_deal_list bsl_db = new Btc_deal_list(bro.getBtc_order_id(),bso.getBtc_order_id(),dealquantity,dealRate,time,dealquantity.multiply(dealRate),btc_stock_id,type,"LTC",bro.getUid(),bso.getUid(),bro.getBtc_order_price());
 			btc_deal_list.add(bsl_db);
 			
 			if(selling_list_index>=sellingOrderList.size())hasNextSell=false;

@@ -200,7 +200,7 @@ public class FormController {
 					btc_order.setTotalorder(btc_order_price.multiply(btc_order_amount));
 					btc_order.setBtc_order_time(btc_order_time);
 					btc_order.setUid(uid);
-					btc_order.setBtc_exstock_name(CoinConfig.getMainCoinName());
+					btc_order.setBtc_exstock_name("LTC");
 					btc_order.setBtc_order_status(0);
 					btc_order.setLockstatus(0);
 					orderService.saveOrder(btc_order);
@@ -348,7 +348,7 @@ public class FormController {
 		}
 		
 		if (exstockname == null) {
-			exstockname = CoinConfig.getMainCoinName();
+			exstockname = "LTC";
 		}
 		// ######################################################################
 		Btc_stock exstock = stockService.getBtc_stockByStockname(exstockname);

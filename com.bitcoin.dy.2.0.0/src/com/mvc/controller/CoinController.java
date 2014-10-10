@@ -165,7 +165,7 @@ public class CoinController {
 		accountBookUtil.addStockAccount(stock.getBtc_stock_Eng_name(), ramount);
 		
 		//如果stockid=莱特币（1001）main.coin
-		int mainCoinId=Integer.parseInt(CoinConfig.getMainCoin());
+		int mainCoinId=Integer.parseInt("1001");
 		if(stockid==mainCoinId){
 			holdUtil.addMoney(user.getUid(), ramount);
 			msg = "同步完成，同步金额"+ramount+",请在您的账户中查收";
@@ -229,7 +229,7 @@ public class CoinController {
 		}
 		int uid = user.getUid();
 		int stock_id = Integer.parseInt(request.getParameter("stockId").toString());
-		int mainStockId=Integer.parseInt(CoinConfig.getMainCoin());
+		int mainStockId=Integer.parseInt("1001");
 		BigDecimal amount = new BigDecimal(request.getParameter("btc_inout_amount").toString());
 		if(stock_id!=mainStockId){
 			Btc_holding userhold = holdingServ.getBtc_holding(uid, stock_id);
@@ -293,7 +293,7 @@ public class CoinController {
 		stockOrderServ.saveStockOrder(order);
 		
 		//如果stockid=莱特币，则按照人民币处理
-		if(stock_id==Integer.parseInt(CoinConfig.getMainCoin())){
+		if(stock_id==Integer.parseInt("1001")){
 			holdUtil.subMoney(uid, amount);
 		}else{
 			holdUtil.subStock(uid, stock_id, amount);

@@ -73,7 +73,7 @@ public class StockService {
 	}
 	
 	public Map<Integer, Object> getBtc_stockByState(int status){
-		List<Object> list = entityDao.createQuery("select btc_stock from Btc_stock btc_stock where btc_stock.caninout='"+status+"' and btc_stock.btc_stock_id!="+Integer.parseInt(CoinConfig.getMainCoin())+"");
+		List<Object> list = entityDao.createQuery("select btc_stock from Btc_stock btc_stock where btc_stock.caninout='"+status+"' and btc_stock.btc_stock_id!=1001");
 		Map<Integer, Object> stock_map = new HashMap<Integer, Object>();
 		if (list.size() != 0) {
 			for(int i=0;i<list.size();i++){
@@ -136,7 +136,7 @@ public class StockService {
 				nsm.setEngName(stock.getBtc_stock_Eng_name());
 				nsm.setExstock(stock.getBtc_stock_exchange_name());
 				nsm.setId(stock.getBtc_stock_id());
-				nsm.setLastprice(deals.getLtPrice(stock.getBtc_stock_id(), CoinConfig.getMainCoinName()));
+				nsm.setLastprice(deals.getLtPrice(stock.getBtc_stock_id(), "LTC"));
 				nsm.setNewsprice(stock.getBtc_stock_price());
 				nsm.setName(stock.getBtc_stock_name());
 				nsm.setZdf(nsm.getNewsprice(),nsm.getLastprice());

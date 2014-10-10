@@ -74,7 +74,7 @@ public class AutoloadController {
 			ModelMap modelMap, HttpServletRequest request,
 			HttpServletResponse response) throws ParseException, IOException {
 		HttpSession session = request.getSession();
-		String exstock = CoinConfig.getMainCoinName();
+		String exstock = "LTC";
 		if(request.getParameter("exstock")!=null){
 			exstock = request.getParameter("exstock").toString();
 		}
@@ -165,9 +165,9 @@ public class AutoloadController {
 		} else {
 			globalbidorder+="<li><span>暂无记录</span><span>暂无记录</span><span>暂无记录</span></li>";
 		}
-		Btc_stock btc_stock = stockService.getBtc_stockByIdandExchangeStock(stockId, CoinConfig.getMainCoinName());
+		Btc_stock btc_stock = stockService.getBtc_stockByIdandExchangeStock(stockId, "LTC");
 		BigDecimal latestprice = new BigDecimal(0);
-		if(exstock.equals(CoinConfig.getMainCoinName())){
+		if(exstock.equals("LTC")){
 		// 最新成交价
 			latestprice = btc_stock.getBtc_stock_price();
 		}
@@ -310,7 +310,7 @@ public class AutoloadController {
 		if(session.getAttribute("globaluser")!=null){
 			Btc_user user = new Btc_user();
 			user = (Btc_user)session.getAttribute("globaluser");
-			if(exstock.equals(CoinConfig.getMainCoinName())){
+			if(exstock.equals("LTC")){
 				Btc_account_book abook = as.getByUidForAcount(user.getUid());
 				if (abook != null) {
 					BigDecimal ab_cny = abook.getAb_cny().setScale(2,
@@ -383,7 +383,7 @@ public class AutoloadController {
 	public void indexload(
 			ModelMap modelMap, HttpServletRequest request,
 			HttpServletResponse response) throws ParseException, IOException {
-		String exstock = CoinConfig.getMainCoinName();
+		String exstock = "LTC";
 		ResourceBundle res = ResourceBundle.getBundle("stock"); 
 		int stockId=Integer.parseInt(res.getString("stock.default.stockid"));
 		List<Object> btc_sellBTC_order_list = null;
@@ -421,9 +421,9 @@ public class AutoloadController {
 		
 		String orderlist = globalsellorder+globalbidorder;
 		// #######################################
-		Btc_stock btc_stock = stockService.getBtc_stockByIdandExchangeStock(stockId, CoinConfig.getMainCoinName());
+		Btc_stock btc_stock = stockService.getBtc_stockByIdandExchangeStock(stockId, "LTC");
 		BigDecimal latestprice = new BigDecimal(0);
-		if(exstock.equals(CoinConfig.getMainCoinName())){
+		if(exstock.equals("LTC")){
 			latestprice = btc_stock.getBtc_stock_price();
 		}
 		Btc_deal_list_today_vo btc_deal_list_today_vo = new Btc_deal_list_today_vo();

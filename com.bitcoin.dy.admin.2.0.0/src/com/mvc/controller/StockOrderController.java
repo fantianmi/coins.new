@@ -115,7 +115,7 @@ public class StockOrderController {
 					bio = stockOrderService.getBtc_inout_orderByid(Integer.parseInt(bwo_id[i]));
 					BigDecimal withdrawAmount = bio.getBtc_inout_amount();
 					int stock_id = bio.getBtc_stock_id();
-					int mainCoinId=Integer.parseInt(CoinConfig.getMainCoin());
+					int mainCoinId=Integer.parseInt("1001");
 					if(stock_id!=mainCoinId){
 						holdUtil.addStock(bio.getUid(), stock_id, bio.getBtc_inout_amount());
 					}else{
